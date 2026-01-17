@@ -1,5 +1,6 @@
 package br.com.ascensao.model;
 public class MainTest {//classe para debug
+    //INTELIGENCIA ARTIFICIAL USADA PARA GERAÇÃO DESSE CÓDIGO TESTE PARA TESTAR OS MÉTODOS E AÇÕES.
 
     public static void main(String[] args) {
 
@@ -10,7 +11,7 @@ public class MainTest {//classe para debug
         FilhoAres guerreiro = new FilhoAres("Kratos");
 
         // Imprime status iniciais para conferência
-        System.out.println("✅ Guerreiros criados com sucesso!");
+        System.out.println("Guerreiros criados com sucesso!");
         System.out.println("--------------------------------------------------\n");
 
 
@@ -18,7 +19,7 @@ public class MainTest {//classe para debug
         // TESTE 2: LÓGICA DO TANQUE (FILHO DE HEFESTO)
         // Regra: Se tiver Vigor, bloqueia o dano totalmente.
         // --------------------------------------------------------------------
-        System.out.println("--- 🛡️ TESTE 1: TANQUE (BLOQUEIO) ---");
+        System.out.println("-TESTE 1: TANQUE (BLOQUEIO) ---");
         System.out.println("Tanque Vida Inicial: " + tanque.getPontosvida() + " | Vigor: " + tanque.getVigor());
         
         System.out.println(">> Ataque de 50 de dano no Tanque...");
@@ -33,7 +34,7 @@ public class MainTest {//classe para debug
         // TESTE 3: LÓGICA DO MAGO (FILHO DE HÉCATE)
         // Regra: Gasta Mana para dar muito dano. Se Mana < custo, medita.
         // --------------------------------------------------------------------
-        System.out.println("--- 🔮 TESTE 2: MAGO (MANA E ATAQUE) ---");
+        System.out.println("TESTE 2: MAGO (MANA E ATAQUE) ---");
         System.out.println("Mago Mana Inicial: " + mago.getMana());
         
         System.out.println(">> Mago ataca Tanque (Feitiço)...");
@@ -48,7 +49,7 @@ public class MainTest {//classe para debug
         // TESTE 4: LÓGICA DO GUERREIRO (FILHO DE ARES)
         // Regra: Roubo de Vida (Lifesteal). Recupera vida ao atacar.
         // --------------------------------------------------------------------
-        System.out.println("--- ⚔️ TESTE 3: GUERREIRO (LIFESTEAL) ---");
+        System.out.println("--- TESTE 3: GUERREIRO (LIFESTEAL) ---");
         
         // 1. Tiramos vida do guerreiro primeiro para ele ter o que curar
         guerreiro.receberDano(50.0); 
@@ -67,7 +68,7 @@ public class MainTest {//classe para debug
         // TESTE 5: LÓGICA DO ARQUEIRO (FILHO DE APOLO)
         // Regra: Chance de Crítico (Aleatório).
         // --------------------------------------------------------------------
-        System.out.println("--- 🏹 TESTE 4: ARQUEIRO (CRÍTICO) ---");
+        System.out.println("TESTE 4: ARQUEIRO (CRÍTICO) ---");
         System.out.println(">> Disparando 5 flechas para testar a sorte...");
         
         for(int i = 1; i <= 5; i++) {
