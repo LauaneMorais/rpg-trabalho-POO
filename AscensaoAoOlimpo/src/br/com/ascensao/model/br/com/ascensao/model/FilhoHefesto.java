@@ -1,0 +1,49 @@
+package br.com.ascensao.model;
+
+public class FilhoHefesto extends SemiDeus{
+
+    private double vigor;// particularidade dos filhos de hefesto
+    private double custoVigorBloqueio = 5.0;
+    
+    public FilhoHefesto() {
+    }
+    
+    public FilhoHefesto(String nome) {
+        super(nome, 120.0, 5.0, 15.0);
+        this.vigor = 50.0;
+    }
+
+    @Override
+    public void atacar(SemiDeus alvo) {
+    double danoTotal= this.getAtaqueBase()*this.getModificadorDano();//se tiver buff de hermes/afrodite
+    alvo.receberDano(danoTotal);
+    }
+
+    @Override
+    public void receberDano(double dano) { //adicionei uma particularidade do personagem ao receber dano
+    if(this.vigor >= custoVigorBloqueio){
+        this.vigor -= custoVigorBloqueio;
+    }
+    else{ super.receberDano(dano);}
+    }
+
+    public double getVigor() {
+        return vigor;
+    }
+
+    public void setVigor(double vigor) {
+        this.vigor = vigor;
+    }
+
+    public double getCustoVigorBloqueio() {
+        return custoVigorBloqueio;
+    }
+
+    public void setCustoVigorBloqueio(double custoVigorBloqueio) {
+        this.custoVigorBloqueio = custoVigorBloqueio;
+    }
+    
+    
+
+    
+}
