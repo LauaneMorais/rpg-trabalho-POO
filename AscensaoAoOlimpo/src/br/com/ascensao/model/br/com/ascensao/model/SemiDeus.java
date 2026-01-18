@@ -7,6 +7,8 @@ public abstract class SemiDeus {
     private double pontosvidaMax;
     private double ataqueBase;
     private double defesaBase;
+    private int contagemAbates;//atributo para contar abates
+
     private boolean estaAtordoado; // buff dionisio
     private double modificadorDano; // buff hermes e afrodite
     private double modificadorDefesa; // buff athena
@@ -22,6 +24,7 @@ public abstract class SemiDeus {
         this.pontosvidaMax = pontosvida;
         this.ataqueBase = ataqueBase;
         this.defesaBase = defesaBase;
+        this.contagemAbates = 0;
         this.estaAtordoado = false;
         this.modificadorDano = 1.0;
         this.modificadorDefesa = 1.0;
@@ -31,15 +34,20 @@ public abstract class SemiDeus {
 
     public abstract void atacar(SemiDeus alvo);// mettodo abstrato para ser sobreescritos nas subclasses
 
-    public void receberDano(double dano) {
+    public void receberDano(double dano,SemiDeus atacante) {
         double danoFinal = dano;
 
         if (this.temReflexo) {// dano se tiver a benção de poseidon
             danoFinal = dano / 2;
             System.out.println(this.nome + " recebeu a benção de Poseidon! Dano reduzido pela metade.");// - mostrar em
-                                                                                                        // tela?
-            // fazer o dano ricochetear? falar com equipe
+        if(atacante != null){//evitar causar loop.
+            double danorefletido = dano/2;
+            atacante.receberDano(danorefletido,null);
+
+        }                                                                                         
+
         }
+
 
         if (this.defesaBase > 0) {// dano total = dano menos a defesa base do inimigo--funcionando
             danoFinal -= this.defesaBase * getModificadorDefesa();// para buff de athena

@@ -31,7 +31,7 @@ public class FilhoHecate extends SemiDeus {
     public void realizarFeitico(SemiDeus alvo) {
         this.mana -= custoManaFeitico;
         double danoFinal = danoFetico * this.getModificadorDano();
-        alvo.receberDano(danoFinal);
+        alvo.receberDano(danoFinal,this);
     }
 
     // ataque de menor dano + revitalização da mana
@@ -43,7 +43,7 @@ public class FilhoHecate extends SemiDeus {
             this.mana = 50.0;
         }
 
-        alvo.receberDano(danoFraco);
+        alvo.receberDano(danoFraco,this);
     }
 
     public double getMana() {
