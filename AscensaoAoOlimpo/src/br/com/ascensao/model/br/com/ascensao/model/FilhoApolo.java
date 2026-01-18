@@ -2,8 +2,8 @@ package br.com.ascensao.model;
 
 public class FilhoApolo extends SemiDeus {
 
-    private static final int chanceCritico= 60;//variavel global imutavel
-    private Double multiplicador;//dobra a chance.
+    private static final int chanceCritico= 40;//variavel global imutavel
+    private double multiplicador;//dobra a chance.
 
 
     public FilhoApolo(){
@@ -17,32 +17,25 @@ public class FilhoApolo extends SemiDeus {
 
     @Override
     public void atacar(SemiDeus alvo) {
-        Double danoTotal = this.getAtaqueBase()*this.getModificadorDano();//dano base
-        boolean foiCritico = false;
+        int chance=Dado.rolar(100);
+        double danoInicial = this.getAtaqueBase()*this.getModificadorDano();//dano base
+         double danoCritico = this.multiplicador*danoInicial; 
+        if(chance<=chanceCritico){ //se o numero sorteado no dado for <= 40 (40 numeros chance)
+           alvo.receberDano(danoCritico);
+            System.out.println("\nCRÍTICO! " + this.getNome() + " acertou uma flecha de luz em um ponto vital!");//efeito
 
-        if(Dado.rolar(100)>chanceCritico){ //se o numero sorteado no dado for >= 60 (40 numeros chance)
-            danoTotal *= this.multiplicador;
-            foiCritico=true;
+        }else{ alvo.receberDano(danoInicial);}
         }
-
-        if(foiCritico){
-            System.out.println("CRÍTICO! " + this.getNome() + " acertou uma flecha de luz em um ponto vital!");//efeito 
-        }
-
-        alvo.receberDano(danoTotal);
-
-    
-    }
 
     public static int getChancecritico() {
         return chanceCritico;
     }
 
-    public Double getMultiplicador() {
+    public double getMultiplicador() {
         return multiplicador;
     }
 
-    public void setMultiplicador(Double multiplicador) {
+    public void setMultiplicador(double multiplicador) {
         this.multiplicador = multiplicador;
     }
 
