@@ -1,4 +1,5 @@
 package br.com.ascensao.model;
+import br.com.ascensao.util.*;
 
 public class FilhoApolo extends SemiDeus {
 

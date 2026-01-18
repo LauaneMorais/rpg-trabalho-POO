@@ -1,4 +1,5 @@
 package br.com.ascensao.model;
+import br.com.ascensao.util.*;
 
 public class FilhoHefesto extends SemiDeus{
 
@@ -17,9 +18,11 @@ public class FilhoHefesto extends SemiDeus{
 
     @Override
     public void atacar(SemiDeus alvo) {
+        
     double danoTotal= this.getAtaqueBase()*this.getModificadorDano();//se tiver buff de hermes/afrodite
     alvo.receberDano(danoTotal);
     }
+
 
     @Override
     public void receberDano(double dano) { //adicionei uma particularidade do personagem ao receber dano

@@ -9,11 +9,11 @@ public abstract class SemiDeus {
     private double ataqueBase;
     private double defesaBase;
     private boolean estaAtordoado;    //buff dionisio
-    private double modificadorDano;   //buff hermes/afrodite
+    private double modificadorDano;   //buff hermes e afrodite
+    private double modificadorDefesa; //buff athena
     private boolean temReflexo;      //buff poseidon
-    //falta adicionar demais buffs
-
-
+    private boolean frutaSagrada;    //buff deméter 
+   
     public SemiDeus() {
     }
 
@@ -26,22 +26,26 @@ public abstract class SemiDeus {
         this.defesaBase = defesaBase;
         this.estaAtordoado = false;
         this.modificadorDano = 1.0;
+        this.modificadorDefesa = 1.0;
         this.temReflexo = false;
+        this.frutaSagrada = false;
     }
 
 
     public abstract void atacar(SemiDeus alvo);//mettodo abstrato para ser sobreescritos nas subclasses
 
+    
     public void receberDano(double dano) {
         double danoFinal = dano;
 
         if (this.temReflexo) {// dano se tiver a benção de poseidon
             danoFinal = dano / 2;
             System.out.println(this.nome + " recebeu a benção de Poseidon! Dano reduzido pela metade.");//- mostrar em tela?
+            //fazer o dano ricochetear? falar com equipe
         }
 
         if (this.defesaBase > 0) {//dano total = dano menos a defesa base do inimigo--funcionando
-            danoFinal -= this.defesaBase;
+            danoFinal -= this.defesaBase*getModificadorDefesa();//para buff de athena
             if (danoFinal < 0) {//tratar dano negativo.
                 danoFinal = 0;
             }
@@ -57,6 +61,9 @@ public abstract class SemiDeus {
     }
 
     public void curar(double valor) {
+        if(frutaSagrada){//buff de deméter no mecanismo de cura
+            this.pontosvida = this.pontosvida*1.5;
+        }
         this.pontosvida += valor;
         if (this.pontosvida > this.pontosvidaMax) {//tratamento para nn passar da vida maxima.--funcionando.
             this.pontosvida = this.pontosvidaMax;
@@ -69,7 +76,9 @@ public abstract class SemiDeus {
     public void resetarEstadoTurno() {
         this.estaAtordoado = false;
         this.modificadorDano = 1.0;
+        this.modificadorDefesa = 1.0;
         this.temReflexo = false;
+        this.frutaSagrada = false;
     }
     
     
@@ -78,6 +87,7 @@ public abstract class SemiDeus {
     }
 
     //alguns setters não são necessários, mas vou tirar depois.
+
     public String getNome() {
         return nome;
     }
@@ -148,6 +158,16 @@ public abstract class SemiDeus {
     }
 
 
+    public double getModificadorDefesa() {
+        return modificadorDefesa;
+    }
+
+
+    public void setModificadorDefesa(double modificadorDefesa) {
+        this.modificadorDefesa = modificadorDefesa;
+    }
+
+
     public boolean isTemReflexo() {
         return temReflexo;
     }
@@ -155,6 +175,16 @@ public abstract class SemiDeus {
 
     public void setTemReflexo(boolean temReflexo) {
         this.temReflexo = temReflexo;
+    }
+
+
+    public boolean isFrutaSagrada() {
+        return frutaSagrada;
+    }
+
+
+    public void setFrutaSagrada(boolean frutaSagrada) {
+        this.frutaSagrada = frutaSagrada;
     }
 
 

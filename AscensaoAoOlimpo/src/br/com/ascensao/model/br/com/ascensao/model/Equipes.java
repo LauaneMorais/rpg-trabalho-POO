@@ -1,4 +1,5 @@
 package br.com.ascensao.model;
+import br.com.ascensao.util.*;
 
 import java.util.ArrayList;
 
@@ -53,9 +54,10 @@ public class Equipes {
     }
 
     /*
-    Quando chega a vez de um combatente agir, ele escolhe um alvo aleato ́rio entre os membros vivos
-    da equipe adversa ́ria e desfere seu ataque caracter ́ıstico. 
+    Quando chega a vez de um combatente agir, ele escolhe um alvo aleatorio entre os membros vivos
+    da equipe adversaria e desfere seu ataque caracterıstico. 
     */
+
     public void turnoCombate(ArrayList<SemiDeus> atacantes, ArrayList<SemiDeus> defensores){
         if(defensores.isEmpty()){ // verificação para ver a lista de defesa está vazia
                 return;
