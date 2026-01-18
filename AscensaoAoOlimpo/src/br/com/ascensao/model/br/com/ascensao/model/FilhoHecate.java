@@ -2,10 +2,10 @@ package br.com.ascensao.model;
 
 public class FilhoHecate extends SemiDeus{
 
-    private Double mana;//atributo particular 
-    private Double custoManaFeitico = 10.0;
-    private Double danoFetico;
-    private Double recuperacaoMana;
+    private double mana;//atributo particular 
+    private double custoManaFeitico = 10.0;
+    private double danoFetico;
+    private double recuperacaoMana;
 
         public FilhoHecate(){
 
@@ -35,7 +35,7 @@ public class FilhoHecate extends SemiDeus{
     }
 //ataque de menor dano + revitalização da mana
     public void realizarGolpeFisico(SemiDeus alvo){
-        Double danoFraco = this.getAtaqueBase()*this.getModificadorDano();
+        double danoFraco = this.getAtaqueBase()*this.getModificadorDano();
         this.mana +=recuperacaoMana;
 
         if(this.mana >50.0){ //garantir que não passe da mana maxima.
@@ -45,35 +45,35 @@ public class FilhoHecate extends SemiDeus{
         alvo.receberDano(danoFraco);
     }
 
-    public Double getMana() {
+    public double getMana() {
         return mana;
     }
 
-    public void setMana(Double mana) {
+    public void setMana(double mana) {
         this.mana = mana;
     }
 
-    public Double getCustoManaFeitico() {
+    public double getCustoManaFeitico() {
         return custoManaFeitico;
     }
 
-    public void setCustoManaFeitico(Double custoManaFeitico) {
+    public void setCustoManaFeitico(double custoManaFeitico) {
         this.custoManaFeitico = custoManaFeitico;
     }
 
-    public Double getDanoFetico() {
+    public double getDanoFetico() {
         return danoFetico;
     }
 
-    public void setDanoFetico(Double danoFetico) {
+    public void setDanoFetico(double danoFetico) {
         this.danoFetico = danoFetico;
     }
 
-    public Double getRecuperacaoMana() {
+    public double getRecuperacaoMana() {
         return recuperacaoMana;
     }
 
-    public void setRecuperacaoMana(Double recuperacaoMana) {
+    public void setRecuperacaoMana(double recuperacaoMana) {
         this.recuperacaoMana = recuperacaoMana;
     }
 

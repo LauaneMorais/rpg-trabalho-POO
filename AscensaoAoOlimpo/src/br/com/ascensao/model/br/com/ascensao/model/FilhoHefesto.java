@@ -4,6 +4,8 @@ public class FilhoHefesto extends SemiDeus{
 
     private double vigor;// particularidade dos filhos de hefesto
     private double custoVigorBloqueio = 5.0;
+    private static final int chanceBloqueio = 20;
+    private int chance;
     
     public FilhoHefesto() {
     }
@@ -21,11 +23,17 @@ public class FilhoHefesto extends SemiDeus{
 
     @Override
     public void receberDano(double dano) { //adicionei uma particularidade do personagem ao receber dano
-    if(this.vigor >= custoVigorBloqueio){
+        chance = Dado.rolar(100);
+        if(this.vigor >= custoVigorBloqueio && chance <=chanceBloqueio){
         this.vigor -= custoVigorBloqueio;
+        super.receberDano(0.0);
+
+        System.out.println("Esta com sorte, vc tirou : "+chance +" e bloqueou completamente o ataque");
+        
+    }else{ super.receberDano(dano);}
+
     }
-    else{ super.receberDano(dano);}
-    }
+
 
     public double getVigor() {
         return vigor;
@@ -42,6 +50,15 @@ public class FilhoHefesto extends SemiDeus{
     public void setCustoVigorBloqueio(double custoVigorBloqueio) {
         this.custoVigorBloqueio = custoVigorBloqueio;
     }
+
+    public static int getChancebloqueio() {
+        return chanceBloqueio;
+    }
+
+    public int getChance() {
+        return chance;
+    }
+    
     
     
 

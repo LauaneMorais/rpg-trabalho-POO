@@ -40,29 +40,30 @@ public abstract class SemiDeus {
             System.out.println(this.nome + " recebeu a benção de Poseidon! Dano reduzido pela metade.");//- mostrar em tela?
         }
 
-        if (this.defesaBase > 0) {//dano total = dano menos a defesa base do inimigo
+        if (this.defesaBase > 0) {//dano total = dano menos a defesa base do inimigo--funcionando
             danoFinal -= this.defesaBase;
-            if (danoFinal < 0) {
+            if (danoFinal < 0) {//tratar dano negativo.
                 danoFinal = 0;
             }
         }
-
+    
         this.pontosvida -= danoFinal;//atualiza pontos de vida
         
         if (this.pontosvida < 0) {// tratamento para vida nn ficar negativa
             this.pontosvida = 0.0;
         }
 
-        System.out.printf( "%s recebeu %.1f  de dano. Vida restante: %.1f",this.nome, danoFinal, this.pontosvida);//mostrar em algum lugar tudo isso?
+        System.out.printf( "%s recebeu %.1f  de dano. Vida restante: %.1f ",this.nome, danoFinal, this.pontosvida);//mostrar em algum lugar tudo isso?
     }
 
     public void curar(double valor) {
         this.pontosvida += valor;
-        if (this.pontosvida > this.pontosvidaMax) {//tratamento para nn passar da vida maxima.
+        if (this.pontosvida > this.pontosvidaMax) {//tratamento para nn passar da vida maxima.--funcionando.
             this.pontosvida = this.pontosvidaMax;
         }
-        System.out.println(this.nome + " recuperou " + valor + " de vida.");
+        System.out.println("\n "+this.nome + " recuperou " + valor + " de vida.");
     }
+
 
     //retornar estado inicial do turno
     public void resetarEstadoTurno() {
