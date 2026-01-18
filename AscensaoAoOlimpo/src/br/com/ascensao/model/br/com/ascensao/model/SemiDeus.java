@@ -48,7 +48,6 @@ public abstract class SemiDeus {
 
         }
 
-
         if (this.defesaBase > 0) {// dano total = dano menos a defesa base do inimigo--funcionando
             danoFinal -= this.defesaBase * getModificadorDefesa();// para buff de athena
             if (danoFinal < 0) {// tratar dano negativo.
@@ -58,16 +57,15 @@ public abstract class SemiDeus {
 
         this.pontosvida -= danoFinal;// atualiza pontos de vida
 
-        if (this.pontosvida < 0) {// tratamento para vida nn ficar negativa
+        if (this.pontosvida <= 0) {// tratamento para vida nn ficar negativa
             this.pontosvida = 0.0;
+            System.out.println(this.nome + " MORREU");
+
+            if (atacante != null) {
+                atacante.contabilizarAbate(); // conta os abates
         }
 
-        System.out.printf("%s recebeu %.1f  de dano. Vida restante: %.1f ", this.nome, danoFinal, this.pontosvida);// mostrar
-                                                                                                                   // em
-                                                                                                                   // algum
-                                                                                                                   // lugar
-                                                                                                                   // tudo
-                                                                                                                   // isso?
+        System.out.printf("%s recebeu %.1f  de dano. Vida restante: %.1f ", this.nome, danoFinal, this.pontosvida);
     }
 
     public void curar(double valor) {
@@ -83,6 +81,7 @@ public abstract class SemiDeus {
 
     // retornar estado inicial do turno
     public void resetarEstadoTurno() {
+        this.contagemAbates=0;
         this.estaAtordoado = false;
         this.modificadorDano = 1.0;
         this.modificadorDefesa = 1.0;
@@ -92,6 +91,10 @@ public abstract class SemiDeus {
 
     public boolean estaVivo() {
         return this.pontosvida > 0;
+    }
+
+    public void contabilizarAbate(){//metodo para contar abates.
+        this.contagemAbates++;
     }
 
     // alguns setters não são necessários, mas vou tirar depois.
@@ -175,5 +178,15 @@ public abstract class SemiDeus {
     public void setFrutaSagrada(boolean frutaSagrada) {
         this.frutaSagrada = frutaSagrada;
     }
+
+    public int getContagemAbates() {
+        return contagemAbates;
+    }
+
+    public void setContagemAbates(int contagemAbates) {
+        this.contagemAbates = contagemAbates;
+    }
+
+    
 
 }
