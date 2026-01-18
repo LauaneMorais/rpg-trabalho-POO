@@ -17,7 +17,7 @@ public class FilhoAres extends SemiDeus {
     public void atacar(SemiDeus alvo) {
         double danoInicial = this.getAtaqueBase() * this.getModificadorDano();// dano no inimigo a priori
         double vidaInimigoInicial = alvo.getPontosvida(); // vida do inimigo antes do ataque
-        alvo.receberDano(danoInicial);
+        alvo.receberDano(danoInicial,this);
 
         double vidaInimigoApos = alvo.getPontosvida(); // vida do inimigo depois do ataque
 

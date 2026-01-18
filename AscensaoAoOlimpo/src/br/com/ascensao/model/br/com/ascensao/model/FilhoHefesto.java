@@ -21,20 +21,20 @@ public class FilhoHefesto extends SemiDeus {
     public void atacar(SemiDeus alvo) {
 
         double danoTotal = this.getAtaqueBase() * this.getModificadorDano();// se tiver buff de hermes/afrodite
-        alvo.receberDano(danoTotal);
+        alvo.receberDano(danoTotal,this);//this se refere a propria classe atual. nessa caso a qualquer combatente da classe filhoHefesto
     }
 
     @Override
-    public void receberDano(double dano) { // adicionei uma particularidade do personagem ao receber dano
+    public void receberDano(double dano,SemiDeus atacante) { // adicionei uma particularidade do personagem ao receber dano
         chance = Dado.rolar(100);
         if (this.vigor >= custoVigorBloqueio && chance <= chanceBloqueio) {
             this.vigor -= custoVigorBloqueio;
-            super.receberDano(0.0);
+            super.receberDano(0.0,atacante);
 
             System.out.println("Esta com sorte, vc tirou : " + chance + " e bloqueou completamente o ataque");
 
         } else {
-            super.receberDano(dano);
+            super.receberDano(dano,atacante);
         }
 
     }

@@ -1,5 +1,8 @@
 package br.com.ascensao.model;
 
+import br.com.ascensao.util.ChanceBuff;
+import br.com.ascensao.util.SorteioBuff;
+
 public abstract class SemiDeus {
 
     private String nome;
@@ -7,6 +10,8 @@ public abstract class SemiDeus {
     private double pontosvidaMax;
     private double ataqueBase;
     private double defesaBase;
+    private int contagemAbates;// atributo para contar abates
+
     private boolean estaAtordoado; // buff dionisio
     private double modificadorDano; // buff hermes e afrodite
     private double modificadorDefesa; // buff athena
@@ -22,6 +27,7 @@ public abstract class SemiDeus {
         this.pontosvidaMax = pontosvida;
         this.ataqueBase = ataqueBase;
         this.defesaBase = defesaBase;
+        this.contagemAbates = 0;
         this.estaAtordoado = false;
         this.modificadorDano = 1.0;
         this.modificadorDefesa = 1.0;
@@ -31,14 +37,18 @@ public abstract class SemiDeus {
 
     public abstract void atacar(SemiDeus alvo);// mettodo abstrato para ser sobreescritos nas subclasses
 
-    public void receberDano(double dano) {
+    public void receberDano(double dano, SemiDeus atacante) {
         double danoFinal = dano;
 
         if (this.temReflexo) {// dano se tiver a benção de poseidon
             danoFinal = dano / 2;
             System.out.println(this.nome + " recebeu a benção de Poseidon! Dano reduzido pela metade.");// - mostrar em
-                                                                                                        // tela?
-            // fazer o dano ricochetear? falar com equipe
+            if (atacante != null) {// evitar causar loop.
+                double danorefletido = dano / 2;
+                atacante.receberDano(danorefletido, null);
+
+            }
+
         }
 
         if (this.defesaBase > 0) {// dano total = dano menos a defesa base do inimigo--funcionando
@@ -50,16 +60,26 @@ public abstract class SemiDeus {
 
         this.pontosvida -= danoFinal;// atualiza pontos de vida
 
-        if (this.pontosvida < 0) {// tratamento para vida nn ficar negativa
+        if (this.pontosvida <= 0) {// tratamento para vida nn ficar negativa
             this.pontosvida = 0.0;
-        }
+            System.out.println(this.nome + " MORREU");
 
-        System.out.printf("%s recebeu %.1f  de dano. Vida restante: %.1f ", this.nome, danoFinal, this.pontosvida);// mostrar
-                                                                                                                   // em
-                                                                                                                   // algum
-                                                                                                                   // lugar
-                                                                                                                   // tudo
-                                                                                                                   // isso?
+            if (atacante != null) {
+                atacante.contabilizarAbate(); // conta os abates
+
+                if (atacante.getContagemAbates() > 0 && atacante.getContagemAbates() % 5 == 0) {// a cada 5 kills
+                    System.out.println(atacante.getNome() + " completou " + atacante.getContagemAbates() + " kills");
+                    // feedbackvisual
+                    if (ChanceBuff.Chance()) {// primeiro teste,se passar sorteia o buff de algum deus.
+                        SorteioBuff.aplicarBuffAleatorio(atacante);
+                    } else {
+                        System.out.println(atacante.getNome() + " não recebeu nenhuma bencão");
+                    }
+
+                }
+            }
+        }
+        System.out.printf("%s recebeu %.1f  de dano. Vida restante: %.1f ", this.nome, danoFinal, this.pontosvida);
     }
 
     public void curar(double valor) {
@@ -75,6 +95,7 @@ public abstract class SemiDeus {
 
     // retornar estado inicial do turno
     public void resetarEstadoTurno() {
+        this.contagemAbates = 0;
         this.estaAtordoado = false;
         this.modificadorDano = 1.0;
         this.modificadorDefesa = 1.0;
@@ -84,6 +105,10 @@ public abstract class SemiDeus {
 
     public boolean estaVivo() {
         return this.pontosvida > 0;
+    }
+
+    public void contabilizarAbate() {// metodo para contar abates.
+        this.contagemAbates++;
     }
 
     // alguns setters não são necessários, mas vou tirar depois.
@@ -166,6 +191,14 @@ public abstract class SemiDeus {
 
     public void setFrutaSagrada(boolean frutaSagrada) {
         this.frutaSagrada = frutaSagrada;
+    }
+
+    public int getContagemAbates() {
+        return contagemAbates;
+    }
+
+    public void setContagemAbates(int contagemAbates) {
+        this.contagemAbates = contagemAbates;
     }
 
 }
