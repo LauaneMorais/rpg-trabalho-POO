@@ -4,7 +4,7 @@ import br.com.ascensao.model.*;
 
 public class SorteioBuff {
 
-    public void aplicarBuffAleatorio(SemiDeus alvo) {
+    public static void aplicarBuffAleatorio(SemiDeus alvo) {//modificador statico para nn precisar criar objeto.
         int sorteio = Dado.rolar(6);
         switch (sorteio) {
             case 1:// buff dionisio
