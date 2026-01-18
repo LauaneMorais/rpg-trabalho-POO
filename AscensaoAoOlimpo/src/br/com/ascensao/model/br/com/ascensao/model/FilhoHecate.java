@@ -1,45 +1,46 @@
 package br.com.ascensao.model;
 
-public class FilhoHecate extends SemiDeus{
+public class FilhoHecate extends SemiDeus {
 
-    private double mana;//atributo particular 
+    private double mana;// atributo particular
     private double custoManaFeitico = 10.0;
     private double danoFetico;
     private double recuperacaoMana;
 
-        public FilhoHecate(){
+    public FilhoHecate() {
 
-        }
-    
-        public FilhoHecate(String nome) {
+    }
+
+    public FilhoHecate(String nome) {
         super(nome, 80.0, 5.0, 3.0);
         this.mana = 50.0;
         this.danoFetico = 20.0;
         this.recuperacaoMana = 15.0;
     }
 
-
     @Override
     public void atacar(SemiDeus alvo) {
-        if(this.mana >= custoManaFeitico){
+        if (this.mana >= custoManaFeitico) {
             realizarFeitico(alvo);
-        }else{
+        } else {
             realizarGolpeFisico(alvo);
         }
     }
-//ataque de maior dano
-    public void realizarFeitico(SemiDeus alvo){
+
+    // ataque de maior dano
+    public void realizarFeitico(SemiDeus alvo) {
         this.mana -= custoManaFeitico;
-        double danoFinal = danoFetico*this.getModificadorDano();
+        double danoFinal = danoFetico * this.getModificadorDano();
         alvo.receberDano(danoFinal);
     }
-//ataque de menor dano + revitalização da mana
-    public void realizarGolpeFisico(SemiDeus alvo){
-        double danoFraco = this.getAtaqueBase()*this.getModificadorDano();
-        this.mana +=recuperacaoMana;
 
-        if(this.mana >50.0){ //garantir que não passe da mana maxima.
-            this.mana =50.0;
+    // ataque de menor dano + revitalização da mana
+    public void realizarGolpeFisico(SemiDeus alvo) {
+        double danoFraco = this.getAtaqueBase() * this.getModificadorDano();
+        this.mana += recuperacaoMana;
+
+        if (this.mana > 50.0) { // garantir que não passe da mana maxima.
+            this.mana = 50.0;
         }
 
         alvo.receberDano(danoFraco);
@@ -76,8 +77,5 @@ public class FilhoHecate extends SemiDeus{
     public void setRecuperacaoMana(double recuperacaoMana) {
         this.recuperacaoMana = recuperacaoMana;
     }
-
-
-    
 
 }
