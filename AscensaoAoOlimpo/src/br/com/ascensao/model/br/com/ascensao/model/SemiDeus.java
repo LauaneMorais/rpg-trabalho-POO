@@ -1,7 +1,6 @@
 package br.com.ascensao.model;
 
-import br.com.ascensao.util.ChanceBuff;
-import br.com.ascensao.util.SorteioBuff;
+import br.com.ascensao.util.*;
 
 public abstract class SemiDeus {
 
