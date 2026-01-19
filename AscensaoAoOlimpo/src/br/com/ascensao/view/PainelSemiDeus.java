@@ -33,7 +33,7 @@ public class PainelSemiDeus extends JPanel {
                 BorderFactory.createBevelBorder(BevelBorder.RAISED) // efeito 3D na borda
         ));
 
-        this.setPreferredSize(new Dimension(140, 200));
+        this.setPreferredSize(new Dimension(200, 240));
 
         inicializarComponentes();
         atualizarPainel(); // chama uma vez para pintar a tela inicial
@@ -45,7 +45,7 @@ public class PainelSemiDeus extends JPanel {
 
         nomePersonagem = new JLabel(semiDeus.getNome(), SwingConstants.CENTER); //pega nome
         nomePersonagem.setForeground(Color.WHITE); //texto branquinho
-        this.add(labelNome, BorderLayout.NORTH); //nome em cima
+        this.add(nomePersonagem, BorderLayout.NORTH); //nome em cima
 
 
         //imagem do personagem que vai no meio do layout
@@ -54,19 +54,20 @@ public class PainelSemiDeus extends JPanel {
 
         ImageIcon icone = carregarIconePersonagem(); 
         if (icone != null) {
-            labelImagem.setIcon(icone); // só cola a imagem se tiver achado 
+            imagemPersonagem.setIcon(icone); // só cola a imagem se tiver achado 
         }
-        this.add(labelImagem, BorderLayout.CENTER); //imagem no meio da tela
+        this.add(imagemPersonagem, BorderLayout.CENTER); //imagem no meio da tela
 
         //vida e status que vai la embaixo
 
         //status
         JPanel painelInferior = new JPanel(new GridLayout(2,1));
-        labelStats = new JLabel("Ataque ⚔ : " + (int)semiDeus.getAtaqueBase() + " Defesa ⛨ : " + (int)semiDeus.getDefesaBase());
-        painelInferior.add(labelStats);
+        statusPersonagem = new JLabel("Ataque ⚔ : " + (int)semiDeus.getAtaqueBase() + "   Defesa ⛨ : " + (int)semiDeus.getDefesaBase());
+        painelInferior.add(statusPersonagem);
 
         //vida
-        barraVida = new JProgressBar(0, (int) semiDeus.getPontosvidaMax) //vai de 0 ate o valor max permitido do personagem
+        // CORRIGIDO: Adicionei o ponto e vírgula no final da linha abaixo
+        barraVida = new JProgressBar(0, (int) semiDeus.getPontosvidaMax()); //vai de 0 ate o valor max permitido do personagem
         barraVida.setValue((int) semiDeus.getPontosvida());
         barraVida.setStringPainted(true);
         painelInferior.add(barraVida);
@@ -80,54 +81,55 @@ public class PainelSemiDeus extends JPanel {
 
         //atualiza atributos
         int vidaAtual = (int) semiDeus.getPontosvida();
-        int vidaMaxima = (int) semiDeus.getPontosvidaMax; 
+        int vidaMaxima = (int) semiDeus.getPontosvidaMax(); 
 
         //atualiza barra de vida
         barraVida.setValue(vidaAtual);
         barraVida.setString(vidaAtual+ "/" + vidaMaxima); //ex: 76/120
 
-        if (vidaAtual > vidaMax * 0.6) {
+        if (vidaAtual > vidaMaxima * 0.6) {
             barraVida.setForeground(new Color(50, 205, 50)); // barra de vida verde, muita vida
-        } else if (vidaAtual > vidaMax * 0.3) { 
+        } else if (vidaAtual > vidaMaxima * 0.3) { 
             barraVida.setForeground(new Color(255, 165, 0)); // barra laranja
         } else { 
             barraVida.setForeground(new Color(220, 20, 60)); // barra vermelha, pouca vida
-        }
-
-
-        if (!semiDeus,estaVivo()) {
-            marcarComoMorto();
         }
     }
 
 
  //a parte abaixo foi gerada por IA e eu não conferi, depois tento entender melhor, gerei porque queria tentar testar logo
 
-    private ImageIcon carregarIconeDoPersonagem() {
+private ImageIcon carregarIconePersonagem() {
         String nomeArquivo = "default.png"; 
-        
-        // Pergunta para o Java: "Qual é o nome da classe desse objeto?"
-        // Se for um objeto da classe FilhoHefesto, retorna "FilhoHefesto"
         String nomeClasse = semiDeus.getClass().getSimpleName();
-
-        // Verifica pedaços do nome
-        if (nomeClasse.contains("Hefesto")) {
-            nomeArquivo = "tanque.png";
-            // ... define cor da borda ...
-        } else if (nomeClasse.contains("Hecate")) {
-            nomeArquivo = "mago.png";
+        
+        // Lógica de seleção do arquivo
+        if (nomeClasse.contains("Teste") || nomeClasse.isEmpty()) {
+            nomeArquivo = "filho_hefesto.png"; // Força essa imagem no teste
         } 
-        // ... outros ifs ...
+        else if (nomeClasse.contains("Hefesto")) nomeArquivo = "filho_hefesto.png";
+        else if (nomeClasse.contains("Hecate")) nomeArquivo = "filho_hecate.png";
+        else if (nomeClasse.contains("Apolo")) nomeArquivo = "filho_apolo.png";
+        else if (nomeClasse.contains("Ares")) nomeArquivo = "filho_ares.png";
 
-        // Tenta achar o arquivo na pasta
+        System.out.println("Procurando em: /br/com/ascensao/assets/" + nomeArquivo);
+
         try {
-            // getClass().getResource é o comando seguro para achar arquivos dentro do projeto
-            URL url = getClass().getResource("/assets/" + nomeArquivo);
+            // AQUI ESTÁ A CORREÇÃO MÁGICA DO CAMINHO:
+            URL url = getClass().getResource("/br/com/ascensao/assets/" + nomeArquivo);
             
-            // ... carrega e redimensiona a imagem ...
+            if (url == null) {
+                System.out.println("ERRO: Java não encontrou em /br/com/ascensao/assets/");
+                return null;
+            }
+
+            ImageIcon iconOriginal = new ImageIcon(url);
+            Image img = iconOriginal.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+            return new ImageIcon(img);
             
         } catch (Exception e) {
-            return null; // Se der erro, retorna nada
+            e.printStackTrace();
+            return null;
         }
     }
 }
