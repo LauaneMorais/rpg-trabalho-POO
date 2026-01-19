@@ -9,7 +9,7 @@ public class FilhoAres extends SemiDeus {
     }
 
     public FilhoAres(String nome) {
-        super(nome, 110.0, 20.0, 2.0);
+        super(nome, 110.0, 20.0, 2.0);//ATRIBUTOS OK
         this.taxaRouboVida = 0.25;
     }
 

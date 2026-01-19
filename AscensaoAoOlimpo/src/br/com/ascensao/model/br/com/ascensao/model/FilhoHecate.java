@@ -3,7 +3,7 @@ package br.com.ascensao.model;
 public class FilhoHecate extends SemiDeus {
 
     private double mana;// atributo particular
-    private double custoManaFeitico = 10.0;
+    private double custoManaFeitico;
     private double danoFetico;
     private double recuperacaoMana;
 
@@ -13,9 +13,10 @@ public class FilhoHecate extends SemiDeus {
 
     public FilhoHecate(String nome) {
         super(nome, 80.0, 5.0, 3.0);
-        this.mana = 50.0;
-        this.danoFetico = 20.0;
-        this.recuperacaoMana = 15.0;
+        this.mana = 60.0;
+        this.danoFetico = 30.0;
+        this.recuperacaoMana = 10.0;
+        this.custoManaFeitico =15.0;
     }
 
     @Override
