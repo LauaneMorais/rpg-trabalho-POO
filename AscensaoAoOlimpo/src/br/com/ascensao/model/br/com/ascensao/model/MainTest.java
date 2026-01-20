@@ -1,9 +1,13 @@
+
+
 package br.com.ascensao.model;
 
 import br.com.ascensao.util.*;
 import java.lang.reflect.Field; // Import necessário para testar atributos privados (Reflection)
 import java.util.ArrayList;
+
 //CODIGO GERADO POR INTELIGENCIA ARTIFICIAL PARA OTIMIZAR TEMPO DE DESENVOLVIMENTO. CLASSE TEMPORARIA PARA TESTAR MÉTODOS E LÓGICAS
+
 public class MainTest {
 
     public static void main(String[] args) {
@@ -25,14 +29,16 @@ public class MainTest {
         // Teste de Instanciação e Polimorfismo
         imprimirFicha(apolo);
         imprimirFicha(hefesto);
+        imprimirFicha(ares);
+        imprimirFicha(hecate);
 
-        // Teste Rápido de Mecânica (Ex: Mana de Hecate)
+        /* // Teste Rápido de Mecânica (Ex: Mana de Hecate)
         System.out.println("\n[Teste Lógica] Hecate ataca sem mana:");
-        hecate.setMana(0.0);
+        hecate.setMana(25.0);
         hecate.atacar(ares);
         System.out.println("Mana após ataque (Esperado recuperar): " + hecate.getMana());
         
-        separador();
+        separador();*/
 
         // -------------------------------------------------------------------------
         // FASE 2: TESTES DE INTEGRAÇÃO (EQUIPES E ARENA)
@@ -104,4 +110,5 @@ public class MainTest {
     public static void separador() {
         System.out.println("\n----------------------------------------------------------\n");
     }
-}
+    }
+
