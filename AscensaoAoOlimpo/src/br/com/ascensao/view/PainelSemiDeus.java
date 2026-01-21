@@ -45,12 +45,14 @@ public class PainelSemiDeus extends JPanel {
 
         nomePersonagem = new JLabel(semiDeus.getNome(), SwingConstants.CENTER); //pega nome
         nomePersonagem.setForeground(Color.WHITE); //texto branquinho
+        nomePersonagem.setFont(new Font("Segoe UI", Font.BOLD, 14));
         this.add(nomePersonagem, BorderLayout.NORTH); //nome em cima
 
 
         //imagem do personagem que vai no meio do layout
 
         imagemPersonagem = new JLabel();
+        imagemPersonagem.setHorizontalAlignment(SwingConstants.CENTER);
 
         ImageIcon icone = carregarIconePersonagem(); 
         if (icone != null) {
@@ -97,7 +99,6 @@ public class PainelSemiDeus extends JPanel {
     }
 
 
- //a parte abaixo foi gerada por IA e eu não conferi, depois tento entender melhor, gerei porque queria tentar testar logo
 
 private ImageIcon carregarIconePersonagem() {
         String nomeArquivo = "default.png"; 
