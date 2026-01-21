@@ -1,5 +1,7 @@
 package br.com.ascensao.model;
 
+import br.com.ascensao.util.SorteioBuff;
+
 public class MainTest2 {// classe para debug
     // INTELIGENCIA ARTIFICIAL USADA PARA GERAÇÃO DESSE CÓDIGO TESTE PARA TESTAR OS
     // MÉTODOS E AÇÕES
@@ -194,7 +196,7 @@ public class MainTest2 {// classe para debug
           separador();*/
 
           //TESTE CRITICO DE APOLO
-        System.out.println("TESTE 6: apolo (CRÍTICO) ---");
+        /*System.out.println("TESTE 6: apolo (CRÍTICO) ---");
         System.out.println(">> Disparando 100 flechas para testar a sorte...");
         // para fazer esse teste mudei a variavel chance para atributo no lugar de local.
         
@@ -205,15 +207,60 @@ public class MainTest2 {// classe para debug
                 aux++;
             }
             separador();         }
-        System.out.printf("Em 100 flechas, %d foram críticas \n",aux);
+        System.out.printf("Em 100 flechas, %d foram críticas \n",aux);*/
 
         //TESTE 7 : OCORRENCIAS DE BUFFS
-        System.out.println(">> Disparando 100 ataques para testar a sorte...");
+        /*System.out.println(">> Disparando 100 ataques para testar a sorte de ter um buff aleatorio...");
         for(int i = 1; i <= 100; i++) {
             System.out.print("ataque " + i + ": ");
             apolo.atacar(hecate);
+            apolo.atacar(hefesto);
+            apolo.atacar(ares);
+            separador();
+
         }
+        System.out.println("Em 300 ataques,de " + apolo.getNome() + ", " +SorteioBuff.getAux()+" ganharam buffs aleatorios ");
+        separador();  //media apolo: 260 kills, 43 buffs
+                      //mediana apolo : 260 kills, 43 buffs */
         
+        /*for(int i = 1; i <= 100; i++) {
+            System.out.print("ataque " + i + ": ");
+            ares.atacar(hecate);
+            ares.atacar(hefesto);
+            ares.atacar(apolo);
+            separador();
+
+        }
+        System.out.println("Em 300 ataques,de " + ares.getNome() + ", " +SorteioBuff.getAux()+" ganharam buffs aleatorios ");
+        separador();//media em 260 kills:38
+                    //mediana 260kills: 38 */
+
+
+        /*for(int i = 1; i <= 100; i++) {
+            System.out.print("ataque " + i + ": ");
+            hecate.atacar(ares);
+            hecate.atacar(hefesto);
+            hecate.atacar(apolo);
+            separador();
+
+        }
+        System.out.println("Em 300 ataques,de " + hecate.getNome() + ", " +SorteioBuff.getAux()+" ganharam buffs aleatorios ");
+        separador(); //media em 275 kills:37
+                    //mediana em 275 kills:42 */
+
+        for(int i = 1; i <= 100; i++) {
+            System.out.print("ataque " + i + ": ");
+            hefesto.atacar(hecate);
+            hefesto.atacar(hefesto);
+            hefesto.atacar(apolo);
+            separador();
+
+        }
+        System.out.println("Em 300 ataques,de " + hefesto.getNome() + ", " +SorteioBuff.getAux()+" ganharam buffs aleatorios ");
+        separador();  //media em 80 kills:12
+                    //mediana em 80 kills:12 
+
+    
 
 
 
