@@ -195,7 +195,7 @@ public class MainTest2 {// classe para debug
 
           //TESTE CRITICO DE APOLO
         System.out.println("TESTE 6: apolo (CRÍTICO) ---");
-        System.out.println(">> Disparando 5 flechas para testar a sorte...");
+        System.out.println(">> Disparando 100 flechas para testar a sorte...");
         // para fazer esse teste mudei a variavel chance para atributo no lugar de local.
         
         for(int i = 1; i <= 100; i++) {
@@ -206,8 +206,15 @@ public class MainTest2 {// classe para debug
             }
             separador();         }
         System.out.printf("Em 100 flechas, %d foram críticas \n",aux);
+
+        //TESTE 7 : OCORRENCIAS DE BUFFS
+        System.out.println(">> Disparando 100 ataques para testar a sorte...");
+        for(int i = 1; i <= 100; i++) {
+            System.out.print("ataque " + i + ": ");
+            apolo.atacar(hecate);
+        }
         
-       
+
 
 
 

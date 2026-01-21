@@ -3,6 +3,7 @@ package br.com.ascensao.util;
 import br.com.ascensao.model.*;
 
 public class SorteioBuff {
+    int aux =0;
 
     public static void aplicarBuffAleatorio(SemiDeus alvo) {//modificador statico para nn precisar criar objeto.
         System.out.println("buff concedido para " + alvo.getNome() + "!"); // facilitar visualmente na fase de testes
@@ -35,5 +36,14 @@ public class SorteioBuff {
         }
 
     }
+
+    public int getAux() {
+        return aux;
+    }
+
+    public void setAux(int aux) {
+        this.aux = aux;
+    }
+
 
 }
