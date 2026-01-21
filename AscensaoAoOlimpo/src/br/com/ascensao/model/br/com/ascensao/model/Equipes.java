@@ -35,7 +35,8 @@ public class Equipes {
         // uma batalha pode ser um duelo de 1 contra 1, ou uma guerra massiva de 100
         // contra 100
         int tam = Dado.rolar(100);
-        System.out.println(">>>>>>>>> TORNEIO COMEÇA!!");
+        System.out.println(">>>>>>>>> TORNEIO COMEÇA!!<<<<<<<<<<<");
+        System.out.printf("batalha %d contra %d ",tam,tam);
         for (int i = 1; i <= tam; i++) {
             // escolhe combatente aleatório e adiciona no ladoA
             SemiDeus c1 = sortearCombatente(">>> Combatente A " + i);
@@ -96,7 +97,7 @@ public class Equipes {
             quantRodadas++;
         }
         if (temSobreviventes(ladoA)) {
-            System.out.println("<<<<< VENCEDOR: LADO A");
+            System.out.println("<<<<< VENCEDOR: LADO A!!");
         } else {
             System.out.println("<<<<< VENCEDOR LADO B!!");
         }

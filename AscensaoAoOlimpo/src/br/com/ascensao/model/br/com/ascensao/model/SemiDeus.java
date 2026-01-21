@@ -50,6 +50,10 @@ public abstract class SemiDeus {
 
         }
 
+        if(this.estaAtordoado){// buff maldição de dionísio
+            danoFinal=0.0;
+        }
+
         if (this.defesaBase > 0) {// dano total = dano menos a defesa base do inimigo--funcionando
             danoFinal -= this.defesaBase * getModificadorDefesa();// para buff de athena
             if (danoFinal < 0) {// tratar dano negativo.
