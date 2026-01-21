@@ -1,0 +1,7 @@
+{
+    "java.project.sourcePaths": [
+        "AscensaoAoOlimpo/src/br/com/ascensao/model",
+        "AscensaoAoOlimpo/src",
+        "AscensaoAoOlimpo"
+    ]
+}
