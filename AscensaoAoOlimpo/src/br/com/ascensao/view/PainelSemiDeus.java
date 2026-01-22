@@ -96,6 +96,13 @@ public class PainelSemiDeus extends JPanel {
         } else { 
             barraVida.setForeground(new Color(220, 20, 60)); // barra vermelha, pouca vida
         }
+
+        //isso aqui deixa a imagem de um semi-deus morto cinza:
+        if (!semiDeus.estaVivo()) {
+            this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 3));
+            nomePersonagem.setForeground(Color.GRAY);
+            imagemPersonagem.setEnabled(false); 
+        }
     }
 
 
