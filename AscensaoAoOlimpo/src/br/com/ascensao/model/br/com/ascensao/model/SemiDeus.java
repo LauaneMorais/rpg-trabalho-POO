@@ -62,6 +62,7 @@ public abstract class SemiDeus {
         }
 
         this.pontosvida -= danoFinal;// atualiza pontos de vida
+         System.out.printf("%s recebeu %.1f  de dano. Vida restante: %.1f ", this.nome, danoFinal, this.pontosvida);
 
         if (this.pontosvida <= 0) {// tratamento para vida nn ficar negativa
             this.pontosvida = 0.0;
@@ -82,7 +83,7 @@ public abstract class SemiDeus {
                 }
             }
         }
-        System.out.printf("%s recebeu %.1f  de dano. Vida restante: %.1f ", this.nome, danoFinal, this.pontosvida);
+       
     }
 
     public void curar(double valor) {
@@ -93,7 +94,7 @@ public abstract class SemiDeus {
         if (this.pontosvida > this.pontosvidaMax) {// tratamento para nn passar da vida maxima.--funcionando.
             this.pontosvida = this.pontosvidaMax;
         }
-        System.out.println("\n " + this.nome + " recuperou " + valor + " de vida.");
+        System.out.println("\n"+ this.nome + " recuperou " + valor + " de vida.\n");
     }
 
     // retornar estado inicial do turno

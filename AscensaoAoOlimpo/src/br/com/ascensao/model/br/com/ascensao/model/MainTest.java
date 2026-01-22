@@ -20,3 +20,34 @@ public class MainTest {
     }
 }
 
+//ANOTAÇÕES TESTES
+/*
+obs: testes sorteados com dado de 5 faces.
+
+-Dando erro quando teoricamente equipe B deveria vencer.
+    investigar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
