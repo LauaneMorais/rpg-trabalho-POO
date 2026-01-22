@@ -23,8 +23,9 @@ public class FilhoApolo extends SemiDeus {
         double danoInicial = this.getAtaqueBase() * this.getModificadorDano();// dano base
         double danoCritico = this.multiplicador * danoInicial;
         if (chance <= chanceCritico) { // se o numero sorteado no dado for <= 40 (40 numeros chance)
+            System.out.println("CRÍTICO! " + this.getNome() + " acertou uma flecha de luz em um ponto vital!");// efeito
             alvo.receberDano(danoCritico,this);
-            System.out.println("\nCRÍTICO! " + this.getNome() + " acertou uma flecha de luz em um ponto vital!");// efeito
+            
 
         } else {
             alvo.receberDano(danoInicial,this);

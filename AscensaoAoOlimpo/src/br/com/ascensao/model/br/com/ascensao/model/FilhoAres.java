@@ -10,7 +10,7 @@ public class FilhoAres extends SemiDeus {
 
     public FilhoAres(String nome) {
         super(nome, 110.0, 20.0, 2.0);//ATRIBUTOS OK
-        this.taxaRouboVida = 0.25;
+        this.taxaRouboVida = 0.25;//alterar taxa de roubo de vida após testes de balanceamento
     }
 
     @Override
