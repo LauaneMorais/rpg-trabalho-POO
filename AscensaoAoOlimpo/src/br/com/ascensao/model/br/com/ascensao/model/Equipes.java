@@ -34,7 +34,7 @@ public class Equipes {
     public void formarEquipes() {
         // uma batalha pode ser um duelo de 1 contra 1, ou uma guerra massiva de 100
         // contra 100
-        int tam = Dado.rolar(100);//modifiquei pra 5 só para facilitar nos testes
+        int tam = Dado.rolar(4);//modifiquei pra 5 só para facilitar nos testes
         System.out.println(">>>>>>>>> TORNEIO COMEÇA!!<<<<<<<<<<<\n");
         System.out.printf("batalha %d contra %d\n ",tam,tam);
         for (int i = 1; i <= tam; i++) {
@@ -64,13 +64,17 @@ public class Equipes {
      */
 
     public void turnoCombate(ArrayList<SemiDeus> atacantes, ArrayList<SemiDeus> defensores) {
-        if (defensores.isEmpty()) { // verificação para ver a lista de defesa está vazia
+        if (defensores.isEmpty()) { // verificação para ver a lista de defesa está vazia antes da rodada começar
             return;
         }
 
         for (SemiDeus a : atacantes) {
             if (!a.estaVivo()) { // para que mortos n ataquem
                 continue;
+            }
+
+            if (defensores.isEmpty()) { // verificação para ver se a lista de defesa está vazia e assim não dá erro p/ quando for passar p/ o próximo atacante
+            return;
             }
 
             int i = Dado.rolar(defensores.size()) - 1;
@@ -97,9 +101,9 @@ public class Equipes {
             quantRodadas++;
         }
         if (temSobreviventes(ladoA)) {
-            System.out.println("<<<<< VENCEDOR: LADO A!!");
+            System.out.println("\n<<<<< VENCEDOR: LADO A!!");
         } else {
-            System.out.println("<<<<< VENCEDOR LADO B!!");
+            System.out.println("\n<<<<< VENCEDOR LADO B!!");
         }
     }
 
