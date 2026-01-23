@@ -107,4 +107,14 @@ public class Equipes {
         }
     }
 
+    public ArrayList<SemiDeus> getLadoA() {
+        return ladoA;
+    }
+
+    public ArrayList<SemiDeus> getLadoB() {
+        return ladoB;
+    }
+
+    
+
 }
