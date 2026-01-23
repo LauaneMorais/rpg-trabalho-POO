@@ -15,7 +15,7 @@ public class Equipes {
         this.ladoB = new ArrayList<SemiDeus>();
     }
 
-    private SemiDeus sortearCombatente(String nome) {
+    private SemiDeus sortearCombatente(String nome) {//mudar para switch case???
         // definimos 4 tipos de combatentes, por isso são 4 faces p/ sortear
         int sorteado = Dado.rolar(4);
         if (sorteado == 1) {
@@ -47,6 +47,8 @@ public class Equipes {
             this.ladoB.add(c2);
         }
     }
+    //---------------------------------------------------------------------------------------------------//
+    //metodos da logica de batalha é melhor estar na controller.
 
     public boolean temSobreviventes(ArrayList<SemiDeus> lado) {
         for (SemiDeus guerreiro : lado) {
@@ -106,6 +108,7 @@ public class Equipes {
             System.out.println("\n<<<<< VENCEDOR LADO B!!");
         }
     }
+    //------------------------------------------------------------------------
 
     public ArrayList<SemiDeus> getLadoA() {
         return ladoA;
