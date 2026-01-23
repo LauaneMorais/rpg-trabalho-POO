@@ -1,5 +1,6 @@
 package br.com.ascensao.model;
 //CODIGO GERADO POR INTELIGENCIA ARTIFICIAL PARA OTIMIZAR TEMPO DE DESENVOLVIMENTO. CLASSE TEMPORARIA PARA TESTAR MÉTODOS E LÓGICAS
+import br.com.ascensao.controller.*;
 
 public class MainTest {
 

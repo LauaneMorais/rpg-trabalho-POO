@@ -50,7 +50,7 @@ public class Equipes {
     //---------------------------------------------------------------------------------------------------//
     //metodos da logica de batalha é melhor estar na controller.
 
-    public boolean temSobreviventes(ArrayList<SemiDeus> lado) {
+    /* public boolean temSobreviventes(ArrayList<SemiDeus> lado) {
         for (SemiDeus guerreiro : lado) {
             if (guerreiro.estaVivo()) {
                 return true; // tem combatentes
@@ -59,11 +59,11 @@ public class Equipes {
         return false; // sobrou ninguém
     }
 
-    /*
-     * Quando chega a vez de um combatente agir, ele escolhe um alvo aleatorio entre
-     * os membros vivos
-     * da equipe adversaria e desfere seu ataque caracterıstico.
-     */
+    
+     // Quando chega a vez de um combatente agir, ele escolhe um alvo aleatorio entre
+      //os membros vivos
+       //da equipe adversaria e desfere seu ataque caracterıstico.
+     
 
     public void turnoCombate(ArrayList<SemiDeus> atacantes, ArrayList<SemiDeus> defensores) {
         if (defensores.isEmpty()) { // verificação para ver a lista de defesa está vazia antes da rodada começar
@@ -107,7 +107,8 @@ public class Equipes {
         } else {
             System.out.println("\n<<<<< VENCEDOR LADO B!!");
         }
-    }
+    } */
+
     //------------------------------------------------------------------------
 
     public ArrayList<SemiDeus> getLadoA() {
