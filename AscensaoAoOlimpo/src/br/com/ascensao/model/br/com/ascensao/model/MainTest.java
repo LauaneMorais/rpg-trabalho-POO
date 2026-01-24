@@ -3,9 +3,9 @@ package br.com.ascensao.model;
 import br.com.ascensao.controller.*;
 
 public class MainTest {
-
+//CRIAR OUTRO CODIGO PARA TESTAR.
     public static void main(String[] args) {
-        System.out.println("=== INICIANDO O GRANDE TORNEIO (TESTE SIMPLES) ===");
+        /*System.out.println("=== INICIANDO O GRANDE TORNEIO (TESTE SIMPLES) ===");
 
         // 1. Criar a Arena
         Equipes arena = new Equipes();
@@ -18,7 +18,8 @@ public class MainTest {
         arena.iniciarCombate();
         
         System.out.println("=== FIM DA SIMULAÇÃO ===");
-    }
+    } */
+}
 }
 
 //ANOTAÇÕES TESTES

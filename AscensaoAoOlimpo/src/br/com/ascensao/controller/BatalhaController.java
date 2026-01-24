@@ -1,6 +1,7 @@
 package br.com.ascensao.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.ascensao.model.*;
 import br.com.ascensao.util.*;
@@ -31,31 +32,46 @@ public class BatalhaController {
      */
 
     public void turnoCombate(ArrayList<SemiDeus> atacantes, ArrayList<SemiDeus> defensores) {
-        
-        if (defensores.isEmpty()) { // verificação para ver a lista de defesa está vazia antes da rodada começar
-            return;
-        }
 
         for (SemiDeus a : atacantes) {
+
             if (!a.estaVivo()) { // para que mortos n ataquem
                 continue;
             }
 
-            if (defensores.isEmpty()) { // verificação para ver se a lista de defesa está vazia e assim não dá erro p/ quando for passar p/ o próximo atacante
+            if (!temSobreviventes(defensores)) { // verificação para ver se a lista de defesa está vazia e assim não dá erro p/ quando for passar p/ o próximo atacante
             return;
             }
 
-            int i = Dado.rolar(defensores.size()) - 1;
-            SemiDeus alvo = defensores.get(i); // atribui um alvo com base em um indice aleatório da lista de defensores
-            System.out.println("\n\n>>>" + a.getNome() + " ataca ->" + alvo.getNome() );
-            a.atacar(alvo); // atacante faz o ataque contra o alvo escolhido
-            if (!alvo.estaVivo()) { // verifica se o alvo morreu para poder remove-lo da lista
-                defensores.remove(alvo);
+            SemiDeus alvo = escolherAlvo(defensores);//chamando metodo para escolher alvo aleatorio
+
+            if(alvo != null){//se existe um alvo,chama o metodo atacar
+                a.atacar(alvo);
             }
-            //acho coerente criar um método auxiliar para fazer a escolha de alvo aleatório.
-             //para ficar mais organizado.
+            
+            }
+            
         }
+    
+
+    private SemiDeus escolherAlvo(ArrayList<SemiDeus> lista){//metodo auxiliar para escolher alvo aleatorio
+        List<SemiDeus> guerreirosVivos = new ArrayList<>();//criando objeto guerreiros vivos
+
+            for (SemiDeus vivos : lista){ //for each pra percorrer a lista e filtrar só os vivos.
+                if(vivos.estaVivo()){
+                    guerreirosVivos.add(vivos);
+                }
+            }
+
+                if(guerreirosVivos.isEmpty()){//retornar null caso a lista esteja vazia
+                    return null;
+                }
+
+                int sorteio = Dado.rolar(guerreirosVivos.size())-1;//para sorteio de guerreio aleatorio da lista de vivos
+                return guerreirosVivos.get(sorteio);//guerreiro sorteado
+            
     }
+    
 
     public void iniciarCombate() {
         arenaBatalha.formarEquipes();//aciona a model equipes para formar as equipes
@@ -78,7 +94,5 @@ public class BatalhaController {
             System.out.println("\n<<<<< VENCEDOR LADO B!!");
         }
     }
-
-
     
 }
