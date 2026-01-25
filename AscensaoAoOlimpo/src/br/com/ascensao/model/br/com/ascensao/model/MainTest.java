@@ -5,7 +5,31 @@ import br.com.ascensao.controller.*;
 public class MainTest {
 //CRIAR OUTRO CODIGO PARA TESTAR.
     public static void main(String[] args) {
-        /*System.out.println("=== INICIANDO O GRANDE TORNEIO (TESTE SIMPLES) ===");
+
+        // 1. Cria a base de dados (Model)
+        Equipes arena = new Equipes();
+
+        // 2. Cria o controlador do jogo (Controller)
+        BatalhaController jogo = new BatalhaController(arena);
+
+        // 3. Roda o sistema
+        jogo.iniciarCombate();
+    }
+        
+}
+
+
+//ANOTAÇÕES TESTES
+/*
+obs: testes sorteados com dado de 5 faces.
+
+-Dando erro quando teoricamente equipe B deveria vencer.
+    investigar
+
+
+
+
+/*System.out.println("=== INICIANDO O GRANDE TORNEIO (TESTE SIMPLES) ===");
 
         // 1. Criar a Arena
         Equipes arena = new Equipes();
@@ -19,37 +43,7 @@ public class MainTest {
         
         System.out.println("=== FIM DA SIMULAÇÃO ===");
     } */
-}
-}
-
-//ANOTAÇÕES TESTES
-/*
-obs: testes sorteados com dado de 5 faces.
-
--Dando erro quando teoricamente equipe B deveria vencer.
-    investigar
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
 

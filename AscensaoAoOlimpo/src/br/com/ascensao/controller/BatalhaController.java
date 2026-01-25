@@ -7,7 +7,7 @@ import br.com.ascensao.model.*;
 import br.com.ascensao.util.*;
 import br.com.ascensao.view.*;
 import java.util.ArrayList;
-
+///hlhiligl
 public class BatalhaController {
 
     private Equipes arenaBatalha;
