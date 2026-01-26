@@ -26,7 +26,7 @@ public class MainTest2 {// classe para debug
         separador(); // INSTANCIAÇÃO E CARACTERISTICAS OKK
 
         
-        /*  // 3. Teste: Mecânica de Ares (Roubo de Vida)-- FUNCIONANDO
+         // 3. Teste: Mecânica de Ares (Roubo de Vida)-- FUNCIONANDO
         System.out.println("--- 2. TESTE: FILHO DE ARES (ROUBO DE VIDA) contra Filho hefesto---");
         // Vamos tirar um pouco de vida do Ares primeiro para ver se ele cura
         ares.setPontosvida(50.0);
@@ -57,7 +57,7 @@ public class MainTest2 {// classe para debug
         System.out.println("Vida inicial de " + ares.getNome() + ": " +ares.getPontosvida());
         ares.atacar(ares);
         System.out.printf("\nVida de %s após ataque: %.1f%n",ares.getNome(), ares.getPontosvida());
-        separador();*/
+        separador();
 
 
          
