@@ -39,11 +39,11 @@ public class Equipes {
         System.out.printf("batalha %d contra %d\n ",tam,tam);
         for (int i = 1; i <= tam; i++) {
             // escolhe combatente aleatório e adiciona no ladoA
-            SemiDeus c1 = sortearCombatente("> Combatente A " + i);
+            SemiDeus c1 = sortearCombatente("Combatente A" + i);
             this.ladoA.add(c1);
 
             // escolhe combatente aleatório e adiciona no ladoB
-            SemiDeus c2 = sortearCombatente("> Combatente B " + i);
+            SemiDeus c2 = sortearCombatente("Combatente B" + i);
             this.ladoB.add(c2);
         }
     }

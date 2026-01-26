@@ -13,7 +13,7 @@ public class BatalhaController {
     private Equipes arenaBatalha;
 
     public BatalhaController(Equipes arenaBatalha) {//inicializando a arena como objeto de equipes
-        this.arenaBatalha = new Equipes();
+        this.arenaBatalha = arenaBatalha;
     }
 
      public boolean temSobreviventes(ArrayList<SemiDeus> lado) {
@@ -46,7 +46,9 @@ public class BatalhaController {
             SemiDeus alvo = escolherAlvo(defensores);//chamando metodo para escolher alvo aleatorio
 
             if(alvo != null){//se existe um alvo,chama o metodo atacar
+                System.out.println("\n" + a.getNome() + " ataca " + alvo.getNome());
                 a.atacar(alvo);
+
             }
             
             }
@@ -78,7 +80,7 @@ public class BatalhaController {
         
         int quantRodadas = 1;
         while (temSobreviventes(arenaBatalha.getLadoA()) && temSobreviventes(arenaBatalha.getLadoB())) {
-            System.out.println("\n\n<<<<<< RODADA " + quantRodadas + " >>>>>>>\n");
+            System.out.println("\n\nRODADA " + quantRodadas + "\n");
             // lado A ataca
             turnoCombate(arenaBatalha.getLadoA(), arenaBatalha.getLadoB());
             if (!temSobreviventes(arenaBatalha.getLadoB())) {
@@ -89,9 +91,9 @@ public class BatalhaController {
             quantRodadas++;
         }
         if (temSobreviventes(arenaBatalha.getLadoA())) {
-            System.out.println("\n<<<<< VENCEDOR: LADO A!!");
+            System.out.println("\nVENCEDOR: LADO A!!");
         } else {
-            System.out.println("\n<<<<< VENCEDOR LADO B!!");
+            System.out.println("\nVENCEDOR LADO B!!");
         }
     }
     
