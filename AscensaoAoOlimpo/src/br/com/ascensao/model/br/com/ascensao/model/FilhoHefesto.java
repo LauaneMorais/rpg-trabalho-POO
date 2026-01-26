@@ -31,7 +31,7 @@ public class FilhoHefesto extends SemiDeus {
             this.vigor -= custoVigorBloqueio;
             super.receberDano(0.0,atacante);
 
-            System.out.println("\nEsta com sorte, vc tirou : " + chance + " e bloqueou completamente o ataque!");
+            System.out.println("Esta com sorte, vc tirou : " + chance + " e bloqueou completamente o ataque!");
 
         } else {
             super.receberDano(dano,atacante);

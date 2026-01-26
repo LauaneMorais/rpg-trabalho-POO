@@ -15,7 +15,7 @@ public class Equipes {
         this.ladoB = new ArrayList<SemiDeus>();
     }
 
-    private SemiDeus sortearCombatente(String nome) {
+    private SemiDeus sortearCombatente(String nome) {//mudar para switch case???
         // definimos 4 tipos de combatentes, por isso são 4 faces p/ sortear
         int sorteado = Dado.rolar(4);
         if (sorteado == 1) {
@@ -39,16 +39,18 @@ public class Equipes {
         System.out.printf("batalha %d contra %d\n ",tam,tam);
         for (int i = 1; i <= tam; i++) {
             // escolhe combatente aleatório e adiciona no ladoA
-            SemiDeus c1 = sortearCombatente("> Combatente A " + i);
+            SemiDeus c1 = sortearCombatente("Combatente A" + i);
             this.ladoA.add(c1);
 
             // escolhe combatente aleatório e adiciona no ladoB
-            SemiDeus c2 = sortearCombatente("> Combatente B " + i);
+            SemiDeus c2 = sortearCombatente("Combatente B" + i);
             this.ladoB.add(c2);
         }
     }
+    //---------------------------------------------------------------------------------------------------//
+    //metodos da logica de batalha é melhor estar na controller.
 
-    public boolean temSobreviventes(ArrayList<SemiDeus> lado) {
+    /* public boolean temSobreviventes(ArrayList<SemiDeus> lado) {
         for (SemiDeus guerreiro : lado) {
             if (guerreiro.estaVivo()) {
                 return true; // tem combatentes
@@ -57,11 +59,11 @@ public class Equipes {
         return false; // sobrou ninguém
     }
 
-    /*
-     * Quando chega a vez de um combatente agir, ele escolhe um alvo aleatorio entre
-     * os membros vivos
-     * da equipe adversaria e desfere seu ataque caracterıstico.
-     */
+    
+     // Quando chega a vez de um combatente agir, ele escolhe um alvo aleatorio entre
+      //os membros vivos
+       //da equipe adversaria e desfere seu ataque caracterıstico.
+     
 
     public void turnoCombate(ArrayList<SemiDeus> atacantes, ArrayList<SemiDeus> defensores) {
         if (defensores.isEmpty()) { // verificação para ver a lista de defesa está vazia antes da rodada começar
@@ -105,7 +107,9 @@ public class Equipes {
         } else {
             System.out.println("\n<<<<< VENCEDOR LADO B!!");
         }
-    }
+    } */
+
+    //------------------------------------------------------------------------
 
     public ArrayList<SemiDeus> getLadoA() {
         return ladoA;
