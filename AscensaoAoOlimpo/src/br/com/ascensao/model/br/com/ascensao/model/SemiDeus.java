@@ -66,6 +66,7 @@ public abstract class SemiDeus {
 
         if (this.pontosvida <= 0) {// tratamento para vida nn ficar negativa
             this.pontosvida = 0.0;
+            
             System.out.println(this.nome + " MORREU");
 
             if (atacante != null) {
