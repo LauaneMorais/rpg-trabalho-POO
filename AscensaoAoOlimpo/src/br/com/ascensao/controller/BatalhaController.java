@@ -46,7 +46,7 @@ public class BatalhaController {
             SemiDeus alvo = escolherAlvo(defensores);//chamando metodo para escolher alvo aleatorio
 
             if(alvo != null){//se existe um alvo,chama o metodo atacar
-                System.out.println("\n" + a.getNome() + " ataca " + alvo.getNome());
+                System.out.println("\n" + a.getNome() + " ataca " + alvo.getNome()+"\n");
                 a.atacar(alvo);
 
             }

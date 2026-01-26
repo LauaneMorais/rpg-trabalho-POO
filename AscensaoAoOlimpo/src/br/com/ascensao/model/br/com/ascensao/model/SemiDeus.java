@@ -62,7 +62,7 @@ public abstract class SemiDeus {
         }
 
         this.pontosvida -= danoFinal;// atualiza pontos de vida
-         System.out.printf("%s recebeu %.1f  de dano. Vida restante: %.1f%n", this.nome, danoFinal, this.pontosvida);
+         System.out.printf("%s recebeu %.1f  de dano. Vida restante: %.1f \n", this.nome, danoFinal, this.pontosvida);
 
         if (this.pontosvida <= 0) {// tratamento para vida nn ficar negativa
             this.pontosvida = 0.0;
