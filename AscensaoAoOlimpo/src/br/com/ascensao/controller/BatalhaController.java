@@ -96,5 +96,10 @@ public class BatalhaController {
             System.out.println("\nVENCEDOR LADO B!!");
         }
     }
-    
+    // larissa: teste
+    public void executarDueloIndividual(ArrayList<SemiDeus> atacantes, ArrayList<SemiDeus> defensores){
+        //Escolhe um atacante vivo (pelo índice)
+        // faz o processo de escolherAlvo e atacar apenas uma vez por clique de botão
+    }
+    //teste
 }
