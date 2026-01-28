@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package br.com.ascensao.view;
 
 import br.com.ascensao.controller.BatalhaController;
@@ -10,8 +6,9 @@ import br.com.ascensao.model.SemiDeus;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
-public class ArenaFrame extends javax.swing.JFrame {
+public class ArenaFrame extends JFrame {
     
     private Equipes arena;
     private BatalhaController controller;
@@ -22,57 +19,83 @@ public class ArenaFrame extends javax.swing.JFrame {
 
     private ArrayList<PainelSemiDeus> cardsA = new ArrayList<>();
     private ArrayList<PainelSemiDeus> cardsB = new ArrayList<>();
+    // Novo atributo para controlar os duelos 1v1 
+    private int dueloAtual = 0; 
 
     public ArenaFrame() {
-
-        setTitle("Ascensão ao Olimpo - Torneio Oficial");
-        setSize(1000, 700);
+        // Deixando a janela maior e com título oficial
+        setTitle("Ascensão ao Olimpo - Torneio da Ascensão");
+        setSize(1100, 750);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout(10, 10));
+        
+        // arrumando o aesthetic, pra seguir oq lau fez em "TelaBatalha"
+        getContentPane().setBackground(new Color(20, 20, 20)); 
+        setLayout(new BorderLayout(15, 15));
 
         arena = new Equipes();
-        arena.formarEquipes();
+        arena.formarEquipes(); // gera os exércitos aleotários no model
 
+        // ligando a view com a controller (padrão mvc)
         controller = new BatalhaController(arena);
 
         montarLayout();
         povoarArena();
 
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // centraliza pra não abrir no canto da tela
         setVisible(true);
-
-        //initComponents();
-
     }
 
-    private void montarLayout(){
+    private void montarLayout() {
+        // dividindo a tela: lado A vs lado B
+        JPanel centro = new JPanel(new GridLayout(1, 2, 30, 0));
+        centro.setOpaque(false); // transparente pra aparecer o fundo escuro da janela
 
-        JPanel centro = new JPanel (new GridLayout (1, 2, 20, 0));
-        centro.setBackground(new Color(40,40,45));
+        // criando painéis com bordas coloridas para separar os times (olimpo vs submundo)
+        painelLadoA = criarPainelEquipe("OLIMPO (ZEUS)", new Color(218, 165, 32));
+        painelLadoB = criarPainelEquipe("SUBMUNDO (HADES)", new Color(139, 0, 0));
 
-        painelLadoA = new JPanel (new FlowLayout(FlowLayout.CENTER, 10, 10));
-        painelLadoB = new JPanel (new FlowLayout(FlowLayout.CENTER, 10, 10));
-
+        // adicionando ScrollPane caso a guerra tenha muitos soldados (ex: 100 vs 100)
         centro.add(new JScrollPane(painelLadoA));
         centro.add(new JScrollPane(painelLadoB));
         add(centro, BorderLayout.CENTER);
 
-        JPanel inferior = new JPanel (new BorderLayout());
-        logBatalha = new JTextArea(6, 30);
-        logBatalha.setEditable(false);
+        // painel de baixo para o log e o botão de ação
+        JPanel inferior = new JPanel(new BorderLayout(10, 0));
+        inferior.setOpaque(false);
+        inferior.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
 
-        btnAcao = new JButton("PROXIMA RODADA");
-        btnAcao.setFont(new Font("Arial", Font.BOLD, 18));
+        // estilizando o log: fundo preto e letras verdes tipo terminal/RPG (como na versão de lau)
+        logBatalha = new JTextArea(8, 30);
+        logBatalha.setEditable(false);
+        logBatalha.setBackground(new Color(10, 10, 15));
+        logBatalha.setForeground(new Color(50, 205, 50)); 
+        logBatalha.setFont(new Font("Consolas", Font.PLAIN, 13));
+
+        // Botão grande e chamativo para os turnos
+        btnAcao = new JButton("⚔️ EXECUTAR DUELO ⚔️");
+        btnAcao.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        btnAcao.setBackground(new Color(100, 0, 0)); // Vermelho Ares
+        btnAcao.setForeground(Color.WHITE);
         btnAcao.addActionListener(e -> clicarNoBotao());
 
         inferior.add(new JScrollPane(logBatalha), BorderLayout.CENTER);
-        inferior.add(btnAcao, BorderLayout.SOUTH);
+        inferior.add(btnAcao, BorderLayout.EAST);
         add(inferior, BorderLayout.SOUTH);
-       
     }
 
-    private void povoarArena(){
-    
+    // método auxiliar para não repetir código de criação de painéis
+    private JPanel criarPainelEquipe(String titulo, Color cor) {
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        p.setBackground(new Color(30, 30, 35));
+        TitledBorder tb = BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(cor, 2), titulo);
+        tb.setTitleColor(cor);
+        p.setBorder(tb);
+        return p;
+    }
+
+    private void povoarArena() {
+        // pegando os SemiDeuses do model e criando os cards visuais de lau
         for (SemiDeus s : arena.getLadoA()) {
             PainelSemiDeus p = new PainelSemiDeus(s);
             cardsA.add(p);
@@ -85,42 +108,48 @@ public class ArenaFrame extends javax.swing.JFrame {
         }
     }
 
-    private void clicarNoBotao(){
+    private void clicarNoBotao() {
+        // lógica de duelo sequencial 
+        // em vez de todo mundo bater de vez, cada clique mostra uma luta 1v1
+        if (dueloAtual >= cardsA.size() || dueloAtual >= cardsB.size()) {
+            logBatalha.append(">>> FIM DA RODADA! <<<\n");
+            dueloAtual = 0; 
+            resetarDestaques();
+            return;
+        }
 
-        //teste 
-        controller.turnoCombate(arena.getLadoA(), arena.getLadoB());
-        controller.turnoCombate(arena.getLadoB(), arena.getLadoA());
+        SemiDeus a = arena.getLadoA().get(dueloAtual);
+        SemiDeus b = arena.getLadoB().get(dueloAtual);
 
-        //teste
-        for (PainelSemiDeus p : cardsA) p.atualizarPainel();
-        for (PainelSemiDeus p : cardsB) p.atualizarPainel();
+        if (a.estaVivo() && b.estaVivo()) {
+            resetarDestaques();
+            // destaca visualmente quem está lutando no momento
+            destacarDuelo(dueloAtual);
+            
+            logBatalha.append("--------------------------------\n");
+            logBatalha.append("⚔️ " + a.getNome() + " desafiou " + b.getNome() + "!\n");
+            
+            // aqui a view pede para o model (via vontroller) aplicar o dano
+            a.atacar(b);
+            if (b.estaVivo()) b.atacar(a);
+            
+            // atualiza o visual dos cards (barrinha de vida)
+            cardsA.get(dueloAtual).atualizarPainel();
+            cardsB.get(dueloAtual).atualizarPainel();
+        }
 
-        logBatalha.append("O combate ruge! Rodada finalizada.\n");
-
+        dueloAtual++;
+        // faz o log descer sozinho para o texto novo aparecer sempre
+        logBatalha.setCaretPosition(logBatalha.getDocument().getLength());
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    /**@SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void destacarDuelo(int index) {
+        cardsA.get(index).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+        cardsB.get(index).setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+    }
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-    }// </editor-fold>//GEN-END:initComponents
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables */
+    private void resetarDestaques() {
+        for (PainelSemiDeus p : cardsA) p.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        for (PainelSemiDeus p : cardsB) p.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+    }
 }

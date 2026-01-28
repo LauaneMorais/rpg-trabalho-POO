@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class BatalhaController {
 
     private Equipes arenaBatalha;
+    private int indexA = 0;
+
 
     public BatalhaController(Equipes arenaBatalha) {//inicializando a arena como objeto de equipes
         this.arenaBatalha = arenaBatalha;
@@ -96,10 +98,32 @@ public class BatalhaController {
             System.out.println("\nVENCEDOR LADO B!!");
         }
     }
-    // larissa: teste
-    public void executarDueloIndividual(ArrayList<SemiDeus> atacantes, ArrayList<SemiDeus> defensores){
-        //Escolhe um atacante vivo (pelo índice)
-        // faz o processo de escolherAlvo e atacar apenas uma vez por clique de botão
+    // larissa: init teste
+   public String dueloDeDuplas(){
+
+    ArrayList<SemiDeus> ladoA = arenaBatalha.getLadoA();
+    ArrayList<SemiDeus> ladoB = arenaBatalha.getLadoB();
+
+    //verificar se a rodada acabou ou se alguem ganhou
+    if(!temSobreviventes(ladoA) || !temSobreviventes(ladoB))
+        return "Fim de jogo!";
+    if(indexA >= ladoA.size()) {
+        indexA = 0;
+        return "Nova rodada!";
     }
-    //teste
+    SemiDeus atacante = ladoA.get(indexA);
+    indexA++;
+
+    if(atacante.estaVivo()){
+        SemiDeus alvo = escolherAlvo(ladoB);
+        if (alvo != null) {
+            atacante.atacar(alvo);
+            return atacante.getNome() + "atacou" + alvo.getNome();
+        }
+    }
+
+    return "O combatente foi tombado, próximo...";
+   }
+    
+    //larissa: end teste
 }
