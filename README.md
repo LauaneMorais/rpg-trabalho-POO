@@ -1,7 +1,10 @@
 # ⚔️ Ascensão ao Olimpo - RPG de turnos
 
-> **Este projeto foi desenvolvido como requisito avaliativo para a disciplina de Programação Orientada a Objetos (POO).** O objetivo é aplicar conceitos avançados de arquitetura de software em um cenário prático de Game Design.
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Swing](https://img.shields.io/badge/GUI-Swing-blue?style=for-the-badge)
+![UFS](https://img.shields.io/badge/UFS-COMP0395-red?style=for-the-badge)
 
+> Este projeto foi desenvolvido como requisito avaliativo para a disciplina de **Programação Orientada a Objetos (POO)**, no Departamento de Computação da Universidade Federal de Sergipe (UFS). 
 ---
 
 ## 📖 Lore do jogo
@@ -20,6 +23,15 @@ Conforme a especificação do projeto, cada combatente possui características �
 | **Tanque** | **Hefesto** | `vigor` | Possui 20% de chance de bloquear totalmente um ataque consumindo vigor. |
 | **Atirador** | **Apolo** | `chanceCritico` | Tem 40% de chance de disparar uma flecha de luz que causa dano dobrado. |
 | **Mago** | **Hécate** | `mana` | Alterna entre feitiços de alto dano e golpes físicos para recuperar energia. |
+---
+### Condições de Vitória
+* A batalha ocorre em rodadas automáticas.
+* Vence a equipe que eliminar todos os combatentes adversários primeiro.
+---
+
+### Modos de Visualização
+* **🖥️ Interface Gráfica:** O jogo conta com uma GUI completa feita em **Swing**, exibindo as cartas dos personagens, barras de vida coloridas e logs de batalha em tempo real.
+* **📜 Log de Combate:** Um painel de texto descreve narrativamente cada ação (ataques, bloqueios, críticos e mortes) conforme elas ocorrem.
 
 ---
 
@@ -54,7 +66,7 @@ Para compilar e executar o projeto, deve-se seguir os passos abaixo:
 * JDK 17 ou superior instalado.
 * Os arquivos de imagem devem estar na pasta `/br/com/ascensao/assets/`.
 
-### Passo a Passo
+### Passo a passo
 
 1. **Clone o repositório:**
 ```bash
@@ -77,3 +89,16 @@ javac br/com/ascensao/view/MenuPrincipal.java
 java br.com.ascensao.view.MenuPrincipal
 
 ```
+
+---
+## 👥 Equipe de desenvolvimento
+
+Projeto desenvolvido pelas discentes:
+
+* [Larissa Cena](https://github.com/laristcena)
+* [Lauane Morais](https://github.com/LauaneMorais)
+* [Luiza Accioly](https://github.com/Acciolylu)
+* [Maciele Ramos](https://github.com/macin-tx)
+
+---
+*Desenvolvido para a disciplina de Programação Orientada a Objetos (COMP0395) - UFS.*
