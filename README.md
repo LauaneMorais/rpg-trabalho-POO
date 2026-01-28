@@ -56,41 +56,6 @@ Todos os atributos da superclasse e subclasses são `private`. O controle de est
 O projeto utiliza `ArrayList` para gerenciar as equipes de tamanho dinâmico e a classe utilitária `Dado` para simular a aleatoriedade dos ataques e alvos.
 
 ---
-
-## 🚀 Como rodar o projeto
-
-Para compilar e executar o projeto, deve-se seguir os passos abaixo:
-
-### Pré-requisitos
-
-* JDK 17 ou superior instalado.
-* Os arquivos de imagem devem estar na pasta `/br/com/ascensao/assets/`.
-
-### Passo a passo
-
-1. **Clone o repositório:**
-```bash
-git clone https://github.com/seu-usuario/ascensao-ao-olimpo.git
-cd ascensao-ao-olimpo
-
-```
-
-
-2. **Compile o projeto:**
-*(Certifique-se de estar na raiz da pasta `src`)*
-```bash
-javac br/com/ascensao/view/MenuPrincipal.java
-
-```
-
-
-3. **Execute o jogo:**
-```bash
-java br.com.ascensao.view.MenuPrincipal
-
-```
-
----
 ## 👥 Equipe de desenvolvimento
 
 Projeto desenvolvido pelas discentes:
