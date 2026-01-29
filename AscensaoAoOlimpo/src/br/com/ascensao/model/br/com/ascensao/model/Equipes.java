@@ -53,10 +53,20 @@ public class Equipes {
     public ArrayList<SemiDeus> getLadoA() {
         return ladoA;
     }
-
     public ArrayList<SemiDeus> getLadoB() {
         return ladoB;
     }
+    
+
+    public boolean temSobreviventes(ArrayList<SemiDeus> lado) {
+        for (SemiDeus guerreiro : lado) {
+            if (guerreiro.estaVivo()) {
+                return true; // tem combatentes
+            }
+        }
+        return false; // sobrou ninguém
+    }
+
 
     
 
