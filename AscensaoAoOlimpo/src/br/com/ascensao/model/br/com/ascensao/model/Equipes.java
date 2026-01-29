@@ -31,7 +31,7 @@ public class Equipes {
     }
 
     // aqui preenchemos as listas p/ cada lado com os combatentes
-    public void formarEquipes() {
+    public int formarEquipes() {
         // uma batalha pode ser um duelo de 1 contra 1, ou uma guerra massiva de 100
         // contra 100
         int tam = Dado.rolar(100);//modifiquei pra 5 só para facilitar nos testes
@@ -46,15 +46,27 @@ public class Equipes {
             SemiDeus c2 = sortearCombatente("Combatente B" + i);
             this.ladoB.add(c2);
         }
+
+        return tam;
     }
     
     public ArrayList<SemiDeus> getLadoA() {
         return ladoA;
     }
-
     public ArrayList<SemiDeus> getLadoB() {
         return ladoB;
     }
+    
+
+    public boolean temSobreviventes(ArrayList<SemiDeus> lado) {
+        for (SemiDeus guerreiro : lado) {
+            if (guerreiro.estaVivo()) {
+                return true; // tem combatentes
+            }
+        }
+        return false; // sobrou ninguém
+    }
+
 
     
 

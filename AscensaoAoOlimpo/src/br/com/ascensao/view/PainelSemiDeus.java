@@ -1,5 +1,9 @@
 package br.com.ascensao.view;
 
+import br.com.ascensao.model.FilhoApolo;
+import br.com.ascensao.model.FilhoAres;
+import br.com.ascensao.model.FilhoHecate;
+import br.com.ascensao.model.FilhoHefesto;
 import br.com.ascensao.model.SemiDeus;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -15,11 +19,9 @@ public class PainelSemiDeus extends JPanel {
     private JLabel imagemPersonagem;
     private JProgressBar barraVida;
     private JLabel statusPersonagem;
+    private JLabel painelIndividualidade; 
 
     private final Color COR_FUNDO = new Color(40, 40, 45);
-    private final Color COR_TEXTO = new Color(240, 240, 240);
-    private final Color COR_BORDA_VIVA = new Color(218, 165, 32); // dourado
-    private final Color COR_BORDA_MORTA = new Color(100, 100, 100); // cinza
 
 
     public PainelSemiDeus (SemiDeus semiDeus) {
@@ -29,11 +31,11 @@ public class PainelSemiDeus extends JPanel {
         this.setLayout(new BorderLayout(10, 10));
         this.setBackground(COR_FUNDO);
         this.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK, 1),
-                BorderFactory.createBevelBorder(BevelBorder.RAISED) // efeito 3D na borda
+                BorderFactory.createBevelBorder(BevelBorder.RAISED), // efeito 3D na borda
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ));
 
-        this.setPreferredSize(new Dimension(200, 240));
+        this.setPreferredSize(new Dimension(400, 340));
 
         inicializarComponentes();
         atualizarPainel(); // chama uma vez para pintar a tela inicial
@@ -62,13 +64,19 @@ public class PainelSemiDeus extends JPanel {
 
         //vida e status que vai la embaixo
 
-        //status
-        JPanel painelInferior = new JPanel(new GridLayout(2,1));
+        //status (adicionei mais um grid pra caber mais infos dos personagens)
+        JPanel painelInferior = new JPanel(new GridLayout(3,1));
         statusPersonagem = new JLabel("Ataque ⚔ : " + (int)semiDeus.getAtaqueBase() + "   Defesa ⛨ : " + (int)semiDeus.getDefesaBase());
         painelInferior.add(statusPersonagem);
 
+        
+        //vai dizer o nivel da mana ou vigor com base no tipo de semi-deus
+        painelIndividualidade = new JLabel(""); 
+        painelIndividualidade.setForeground(new Color(0, 0, 0));
+        painelInferior.add(painelIndividualidade);
+
         //vida
-        // CORRIGIDO: Adicionei o ponto e vírgula no final da linha abaixo
+        
         barraVida = new JProgressBar(0, (int) semiDeus.getPontosvidaMax()); //vai de 0 ate o valor max permitido do personagem
         barraVida.setValue((int) semiDeus.getPontosvida());
         barraVida.setStringPainted(true);
@@ -89,12 +97,31 @@ public class PainelSemiDeus extends JPanel {
         barraVida.setValue(vidaAtual);
         barraVida.setString(vidaAtual+ "/" + vidaMaxima); //ex: 76/120
 
+        if (semiDeus instanceof FilhoHecate) {
+            painelIndividualidade.setText("Mana: " + (int)((FilhoHecate)semiDeus).getMana());
+        } else if (semiDeus instanceof FilhoHefesto) {
+            painelIndividualidade.setText("Vigor: " + (int)((FilhoHefesto)semiDeus).getVigor());
+        } else if (semiDeus instanceof FilhoApolo) {
+            painelIndividualidade.setText("Taxa Crítico: " + FilhoApolo.getChancecritico() + "%");
+        } else if (semiDeus instanceof FilhoAres) {
+            int taxa = (int)(((FilhoAres)semiDeus).getTaxaRouboVida() * 100);
+            painelIndividualidade.setText("Roubo de Vida: " + taxa + "%");
+        }
+
         if (vidaAtual > vidaMaxima * 0.6) {
             barraVida.setForeground(new Color(50, 205, 50)); // barra de vida verde, muita vida
         } else if (vidaAtual > vidaMaxima * 0.3) { 
             barraVida.setForeground(new Color(255, 165, 0)); // barra laranja
         } else { 
             barraVida.setForeground(new Color(220, 20, 60)); // barra vermelha, pouca vida
+        }
+
+
+        //isso aqui deixa a imagem de um semi-deus morto cinza:
+        if (!semiDeus.estaVivo()) {
+            this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 3));
+            nomePersonagem.setForeground(Color.GRAY);
+            imagemPersonagem.setEnabled(false); 
         }
     }
 
