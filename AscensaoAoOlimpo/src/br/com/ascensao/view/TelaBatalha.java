@@ -4,6 +4,7 @@ import br.com.ascensao.model.SemiDeus;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 
 public class TelaBatalha extends JFrame {
@@ -17,12 +18,18 @@ public class TelaBatalha extends JFrame {
     private SemiDeus amigo;
     private SemiDeus inimigo;
 
+    private JPanel painelBuff;
+    private JLabel mensagemBuff;
+    private JLabel imagemBuff;
+    private JLabel nomeDeusBuff;
+
+
     public TelaBatalha(SemiDeus amigo, SemiDeus inimigo) {
         this.amigo = amigo;
         this.inimigo = inimigo;
 
         setTitle("Ascensão ao Olimpo - FIGHT!");
-        setSize(900, 600);
+        setSize(1100, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout()); //pra poder dividir entre norte, sul, centro...
 
@@ -36,6 +43,30 @@ public class TelaBatalha extends JFrame {
     //tinha feito com flowlayout e ficou meio desorganizado, ai pedi pra a ia reorganizar meu codigo pra ficar certinho e ela fez isso que funcionou :D
     
     private void inicializarInterface() {
+
+        painelBuff = new JPanel(new BorderLayout());
+        painelBuff.setBackground(new Color(255, 215, 0)); // douradinho
+        painelBuff.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, Color.ORANGE));
+        painelBuff.setVisible(false); // pra ficar invisível enquanto nao for ativado
+        painelBuff.setPreferredSize(new Dimension(1100, 120));
+
+        mensagemBuff = new JLabel("Um deus olhou para a arena!", SwingConstants.CENTER);
+        mensagemBuff.setFont( new Font("Segoe UI", Font.BOLD, 15));
+        mensagemBuff.setForeground(Color.BLACK);
+
+        imagemBuff = new JLabel();
+        imagemBuff.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JPanel centroDivino = new JPanel(new BorderLayout());
+        centroDivino.setOpaque(false);
+        centroDivino.add(mensagemBuff, BorderLayout.NORTH);
+        centroDivino.add(imagemBuff, BorderLayout.CENTER);
+        centroDivino.add(nomeDeusBuff, BorderLayout.SOUTH);
+        
+        painelBuff.add(centroDivino, BorderLayout.CENTER);
+        
+        // cola la em cima
+        add(painelBuff, BorderLayout.NORTH);
         
         // Usamos GridBagLayout para um controle de posicionamento mais preciso que o FlowLayout
         JPanel arena = new JPanel(new GridBagLayout());
