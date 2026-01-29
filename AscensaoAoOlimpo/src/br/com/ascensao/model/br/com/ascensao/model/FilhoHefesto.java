@@ -20,7 +20,7 @@ public class FilhoHefesto extends SemiDeus {
     @Override
     public void atacar(SemiDeus alvo) {
 
-        double danoTotal = this.getAtaqueBase() * this.getModificadorDano();// se tiver buff de hermes/afrodite
+        double danoTotal = this.getAtaqueBase() * this.getStatus().getModificadorDano();// se tiver buff de hermes/afrodite
         alvo.receberDano(danoTotal,this);//this se refere a propria classe atual. nessa caso a qualquer combatente da classe filhoHefesto
     }
 
