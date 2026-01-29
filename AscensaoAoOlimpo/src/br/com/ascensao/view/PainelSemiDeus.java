@@ -1,5 +1,7 @@
 package br.com.ascensao.view;
 
+import br.com.ascensao.model.FilhoApolo;
+import br.com.ascensao.model.FilhoAres;
 import br.com.ascensao.model.FilhoHecate;
 import br.com.ascensao.model.FilhoHefesto;
 import br.com.ascensao.model.SemiDeus;
@@ -19,9 +21,6 @@ public class PainelSemiDeus extends JPanel {
     private JLabel statusPersonagem;
 
     private final Color COR_FUNDO = new Color(40, 40, 45);
-    private final Color COR_TEXTO = new Color(240, 240, 240);
-    private final Color COR_BORDA_VIVA = new Color(218, 165, 32); // dourado
-    private final Color COR_BORDA_MORTA = new Color(100, 100, 100); // cinza
 
 
     public PainelSemiDeus (SemiDeus semiDeus) {
@@ -31,11 +30,11 @@ public class PainelSemiDeus extends JPanel {
         this.setLayout(new BorderLayout(10, 10));
         this.setBackground(COR_FUNDO);
         this.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK, 1),
-                BorderFactory.createBevelBorder(BevelBorder.RAISED) // efeito 3D na borda
+                BorderFactory.createBevelBorder(BevelBorder.RAISED), // efeito 3D na borda
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ));
 
-        this.setPreferredSize(new Dimension(200, 240));
+        this.setPreferredSize(new Dimension(400, 340));
 
         inicializarComponentes();
         atualizarPainel(); // chama uma vez para pintar a tela inicial
@@ -72,12 +71,16 @@ public class PainelSemiDeus extends JPanel {
         
         //vai dizer o nivel da mana ou vigor com base no tipo de semi-deus
         JLabel painelIndividualidade = new JLabel(""); 
-        painelIndividualidade.setForeground(new Color(173, 216, 230));
+        painelIndividualidade.setForeground(new Color(0, 0, 0));
         
         if (semiDeus instanceof FilhoHecate) {
-            painelIndividualidade.setText("Mana: " + (int)((FilhoHecate)semiDeus).getMana());
+            painelIndividualidade.setText("Filho de Hécate - Mana: " + (int)((FilhoHecate)semiDeus).getMana());
         } else if (semiDeus instanceof FilhoHefesto) {
-            painelIndividualidade.setText("Vigor: " + (int)((FilhoHefesto)semiDeus).getVigor());
+            painelIndividualidade.setText("Filho de Hefesto - Vigor: " + (int)((FilhoHefesto)semiDeus).getVigor());
+        } else if (semiDeus instanceof FilhoApolo) {
+            painelIndividualidade.setText("Filho de Apolo - Chance de crítico: " + (int)FilhoApolo.getChancecritico());
+        } else if (semiDeus instanceof FilhoAres) {
+            painelIndividualidade.setText("Filho de Ares - Roubo de vida: "+(int)((FilhoAres)semiDeus).getTaxaRouboVida());
         }
         painelInferior.add(painelIndividualidade);
 
