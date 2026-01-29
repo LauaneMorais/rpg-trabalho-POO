@@ -48,6 +48,14 @@ public class Equipes {
 
         return tam;
     }
+    
+    public ArrayList<SemiDeus> getLadoA() {
+        return ladoA;
+    }
+
+    public ArrayList<SemiDeus> getLadoB() {
+        return ladoB;
+    }
 
     public boolean temSobreviventes(ArrayList<SemiDeus> lado) {
         for (SemiDeus guerreiro : lado) {
