@@ -19,6 +19,7 @@ public class PainelSemiDeus extends JPanel {
     private JLabel imagemPersonagem;
     private JProgressBar barraVida;
     private JLabel statusPersonagem;
+    private JLabel painelIndividualidade; 
 
     private final Color COR_FUNDO = new Color(40, 40, 45);
 
@@ -70,18 +71,8 @@ public class PainelSemiDeus extends JPanel {
 
         
         //vai dizer o nivel da mana ou vigor com base no tipo de semi-deus
-        JLabel painelIndividualidade = new JLabel(""); 
+        painelIndividualidade = new JLabel(""); 
         painelIndividualidade.setForeground(new Color(0, 0, 0));
-        
-        if (semiDeus instanceof FilhoHecate) {
-            painelIndividualidade.setText("Filho de Hécate - Mana: " + (int)((FilhoHecate)semiDeus).getMana());
-        } else if (semiDeus instanceof FilhoHefesto) {
-            painelIndividualidade.setText("Filho de Hefesto - Vigor: " + (int)((FilhoHefesto)semiDeus).getVigor());
-        } else if (semiDeus instanceof FilhoApolo) {
-            painelIndividualidade.setText("Filho de Apolo - Chance de crítico: " + (int)FilhoApolo.getChancecritico());
-        } else if (semiDeus instanceof FilhoAres) {
-            painelIndividualidade.setText("Filho de Ares - Roubo de vida: "+(int)((FilhoAres)semiDeus).getTaxaRouboVida());
-        }
         painelInferior.add(painelIndividualidade);
 
         //vida
@@ -106,6 +97,17 @@ public class PainelSemiDeus extends JPanel {
         barraVida.setValue(vidaAtual);
         barraVida.setString(vidaAtual+ "/" + vidaMaxima); //ex: 76/120
 
+        if (semiDeus instanceof FilhoHecate) {
+            painelIndividualidade.setText("Mana: " + (int)((FilhoHecate)semiDeus).getMana());
+        } else if (semiDeus instanceof FilhoHefesto) {
+            painelIndividualidade.setText("Vigor: " + (int)((FilhoHefesto)semiDeus).getVigor());
+        } else if (semiDeus instanceof FilhoApolo) {
+            painelIndividualidade.setText("Taxa Crítico: " + FilhoApolo.getChancecritico() + "%");
+        } else if (semiDeus instanceof FilhoAres) {
+            int taxa = (int)(((FilhoAres)semiDeus).getTaxaRouboVida() * 100);
+            painelIndividualidade.setText("Roubo de Vida: " + taxa + "%");
+        }
+
         if (vidaAtual > vidaMaxima * 0.6) {
             barraVida.setForeground(new Color(50, 205, 50)); // barra de vida verde, muita vida
         } else if (vidaAtual > vidaMaxima * 0.3) { 
@@ -113,6 +115,7 @@ public class PainelSemiDeus extends JPanel {
         } else { 
             barraVida.setForeground(new Color(220, 20, 60)); // barra vermelha, pouca vida
         }
+
 
         //isso aqui deixa a imagem de um semi-deus morto cinza:
         if (!semiDeus.estaVivo()) {
