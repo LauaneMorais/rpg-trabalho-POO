@@ -38,12 +38,12 @@ public class MenuPrincipal extends JFrame {
     //menu inicial para o jogador selecionar o que quer fazer
     private JPanel inicializarMenu() {
         JPanel painel = new JPanel(new BorderLayout());
-        painel,setBackground(new Color(20, 20, 20)); //cinza escuro
+        painel.setBackground(new Color(20, 20, 20)); //cinza escuro
 
         //titulo do menu:
         JPanel topo = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 50));
         topo.setOpaque(false);
-        JLabel titulo = new JLabel("ASCENSÃO AO OLIMPO");
+        JLabel titulo = new JLabel("ASCENSÃO AO OLIMPO! 🏛️");
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 48));
         titulo.setForeground(new Color(218, 165, 32)); // cor dourado
         topo.add(titulo);
@@ -200,6 +200,72 @@ public class MenuPrincipal extends JFrame {
         });
         return btn;
     }
+
+    private ImageIcon carregarImagemSenhorGuerra() {
+    try {
+        //tenta achar
+        java.net.URL url = getClass().getResource("/br/com/ascensao/assets/senhor_guerra.png");
+        
+        if (url != null) {
+            ImageIcon iconOriginal = new ImageIcon(url);
+            
+            Image img = iconOriginal.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+            return new ImageIcon(img);
+        }
+    } catch (Exception e) {
+        System.err.println("Não foi possível carregar a imagem do Senhor da Guerra.");
+    }
+    return null; // tratamento de erro
+}
+
+    private void confirmarInicioBatalha() {
+    Equipes arena = new Equipes();
+    
+    // O Back-end sorteia e nos diz o número aqui:
+    int totalSorteado = arena.formarEquipes(); 
+
+    // Agora mostramos esse número sorteado no Front!
+    JOptionPane.showMessageDialog(this, 
+        "O Destino decidiu!\n" +
+        "O Torneio terá " + totalSorteado + " combatentes de cada lado.\n" +
+        "Prepare seu coração, " + nomeSenhorDaGuerra + "!");
+
+    // Pegamos os líderes (primeiros da lista) para exibir na tela de batalha 1x1
+    SemiDeus heroi = arena.getLadoA().get(0);
+    SemiDeus inimigo = arena.getLadoB().get(0);
+
+    TelaBatalha telaBatalha = new TelaBatalha(heroi, inimigo);
+    telaBatalha.setVisible(true);
+
+    this.dispose();
+    }
+
+    private void mostrarCreditos() {
+        JTextArea creditos = new JTextArea(
+            "Espero que tgoste de Ascensão ao Olimpo!\n\n" +
+            "Desenvolvido por:\nLarissa Cena\nLauane Morais\nLuiza Accioly\nMaciele Ramos\n\n\n" + 
+            "Disciplina: Programação Orientada a Objetos.\n\n" +
+            "Agradecimentos:\nProf. Maily\nProf André Yoshiaki\nDeuses do Olimpo"
+        );
+
+        creditos.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        creditos.setForeground(new Color(218, 165, 32)); // douradinho
+        creditos.setBackground(new Color(30, 30, 35)); // cinza Escuro
+        creditos.setEditable(false);
+        creditos.setMargin(new Insets(10, 10, 10, 10));
+
+        JScrollPane scroll = new JScrollPane(creditos);
+        scroll.setBorder(BorderFactory.createLineBorder(new Color(218, 165, 32)));
+        scroll.setPreferredSize(new Dimension(400, 250));
+
+        JOptionPane.showMessageDialog(
+            this, 
+            scroll, 
+            "CRÉDITOS DO PROJETO", 
+            JOptionPane.PLAIN_MESSAGE
+        );
+    }
+
     }
 
 
