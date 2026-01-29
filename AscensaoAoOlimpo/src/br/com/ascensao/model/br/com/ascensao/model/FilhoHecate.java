@@ -31,13 +31,13 @@ public class FilhoHecate extends SemiDeus {
     // ataque de maior dano
     public void realizarFeitico(SemiDeus alvo) {
         this.mana -= custoManaFeitico;
-        double danoFinal = danoFetico * this.getModificadorDano();
+        double danoFinal = danoFetico * this.getStatus().getModificadorDano();
         alvo.receberDano(danoFinal,this);
     }
 
     // ataque de menor dano + revitalização da mana
     public void realizarGolpeFisico(SemiDeus alvo) {
-        double danoFraco = this.getAtaqueBase() * this.getModificadorDano();
+        double danoFraco = this.getAtaqueBase() * this.getStatus().getModificadorDano();
         this.mana += recuperacaoMana;
 
         if (this.mana > 50.0) { // garantir que não passe da mana maxima.
