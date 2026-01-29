@@ -1,5 +1,7 @@
 package br.com.ascensao.view;
 
+import br.com.ascensao.model.FilhoHecate;
+import br.com.ascensao.model.FilhoHefesto;
 import br.com.ascensao.model.SemiDeus;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -62,13 +64,25 @@ public class PainelSemiDeus extends JPanel {
 
         //vida e status que vai la embaixo
 
-        //status
-        JPanel painelInferior = new JPanel(new GridLayout(2,1));
+        //status (adicionei mais um grid pra caber mais infos dos personagens)
+        JPanel painelInferior = new JPanel(new GridLayout(3,1));
         statusPersonagem = new JLabel("Ataque ⚔ : " + (int)semiDeus.getAtaqueBase() + "   Defesa ⛨ : " + (int)semiDeus.getDefesaBase());
         painelInferior.add(statusPersonagem);
 
+        
+        //vai dizer o nivel da mana ou vigor com base no tipo de semi-deus
+        JLabel painelIndividualidade = new JLabel(""); 
+        painelIndividualidade.setForeground(new Color(173, 216, 230));
+        
+        if (semiDeus instanceof FilhoHecate) {
+            painelIndividualidade.setText("Mana: " + (int)((FilhoHecate)semiDeus).getMana());
+        } else if (semiDeus instanceof FilhoHefesto) {
+            painelIndividualidade.setText("Vigor: " + (int)((FilhoHefesto)semiDeus).getVigor());
+        }
+        painelInferior.add(painelIndividualidade);
+
         //vida
-        // CORRIGIDO: Adicionei o ponto e vírgula no final da linha abaixo
+        
         barraVida = new JProgressBar(0, (int) semiDeus.getPontosvidaMax()); //vai de 0 ate o valor max permitido do personagem
         barraVida.setValue((int) semiDeus.getPontosvida());
         barraVida.setStringPainted(true);
