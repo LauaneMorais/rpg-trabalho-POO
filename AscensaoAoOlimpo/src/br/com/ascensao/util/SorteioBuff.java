@@ -16,15 +16,21 @@ public class SorteioBuff {
     listaBuffs.add(new BuffDemeter());
     }
 
+    //MUDEI O METODO PRA CONSEGUIR RECEBER O NOME DO DEUS QUE FOI SORTEADOOOO, no mudei nada mais (lau s2)
 
-    public static void aplicarBuffAleatorio(SemiDeus alvo) {//modificador statico para nn precisar criar objeto.
+    public static String aplicarBuffAleatorio(SemiDeus alvo) {//modificador statico para nn precisar criar objeto.
         System.out.println("buff concedido para " + alvo.getNome() + "!"); // facilitar visualmente na fase de testes
         int buffSorteado = Dado.rolar(listaBuffs.size())-1;
 
         EfeitoDivino efeitoSorteado = listaBuffs.get(buffSorteado);
 
+        String nomeCompleto = efeitoSorteado.getClass().getSimpleName();
+        String nomeDeus = nomeCompleto.replace("Buff", "");
+        
+        
         efeitoSorteado.aplicarBuff(alvo);
-
+        
+        return nomeDeus;
     }
 
   
