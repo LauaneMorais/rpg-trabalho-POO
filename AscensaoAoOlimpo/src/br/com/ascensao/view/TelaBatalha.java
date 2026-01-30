@@ -1,6 +1,8 @@
 package br.com.ascensao.view;
 
 import br.com.ascensao.model.SemiDeus;
+import br.com.ascensao.util.ChanceBuff;
+import br.com.ascensao.util.SorteioBuff;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +19,7 @@ public class TelaBatalha extends JFrame {
     private SemiDeus amigo;
     private SemiDeus inimigo;
 
+    //componentes dos buffs
     private JPanel painelBuff;
     private JLabel mensagemBuff;
     private JLabel imagemBuff;
@@ -50,11 +53,11 @@ public class TelaBatalha extends JFrame {
         painelBuff.setPreferredSize(new Dimension(1100, 120));
 
         mensagemBuff = new JLabel("Um deus olhou para a arena!", SwingConstants.CENTER);
-        mensagemBuff.setFont( new Font("Segoe UI", Font.BOLD, 15));
+        mensagemBuff.setFont( new Font("Segoe UI", Font.BOLD, 18));
         mensagemBuff.setForeground(Color.BLACK);
 
         nomeDeusBuff = new JLabel("", SwingConstants.CENTER); 
-        nomeDeusBuff.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        nomeDeusBuff.setFont(new Font("Segoe UI", Font.ITALIC, 16));
         nomeDeusBuff.setForeground(Color.BLACK);
 
         imagemBuff = new JLabel();
@@ -130,10 +133,73 @@ public class TelaBatalha extends JFrame {
         add(painelControles, BorderLayout.SOUTH);
     }
 
+    private void aplicarBuff() {
+        if (br.com.ascensao.util.ChanceBuff.Chance()) {
+            br.com.ascensao.util.SorteioBuff.aplicarBuffAleatorio(amigo);
+            String nomeDeus = br.com.ascensao.util.SorteioBuff.aplicarBuffAleatorio(amigo);
+
+            painelBuff.setVisible(true);
+        
+        
+            ImageIcon iconeDivino = carregarIconeBuff(nomeDeus);
+            if (iconeDivino != null) {
+                imagemBuff.setIcon(iconeDivino);
+            } else {
+                imagemBuff.setIcon(null);
+            }
+
+            painelBuff.setVisible(true);
+            nomeDeusBuff.setText("A intervenção de " + nomeDeus.toUpperCase() + " caiu sobre " + amigo.getNome() + "!");
+
+            logBatalha.append("INTERVENÇÃO DE " + nomeDeus.toUpperCase() + " RECEBIDA!\n");
+
+            painelTimeAmigo.atualizarPainel(); 
+            } else {
+            painelBuff.setVisible(false);
+            }
+        }
+
+        private ImageIcon carregarIconeBuff(String nomeDeus) {
+    String nomeArquivo = "";
+    String nomeCorretoDeus = nomeDeus.toLowerCase(); //formata o nome do deus
+
+    // tratando diferençãos
+    if (nomeCorretoDeus.contains("dionisio")) {
+        nomeArquivo = "maldicao_dionisio.png";
+    } 
+    else if (nomeCorretoDeus.contains("athena") || nomeCorretoDeus.contains("atena")) {
+        nomeArquivo = "bencao_atena.png";
+    } 
+    else {
+        
+        nomeArquivo = "bencao_" + nomeCorretoDeus + ".png";
+    }
+
+    
+    try {
+        java.net.URL url = getClass().getResource("/br/com/ascensao/assets/" + nomeArquivo);
+        
+        if (url == null) {
+            System.out.println("Imagem não encontrada: " + nomeArquivo);
+            return null;
+        }
+
+        ImageIcon iconOriginal = new ImageIcon(url);
+        Image img = iconOriginal.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        return new ImageIcon(img);
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+    }
+}
+
     private void executarTurno() {
         if (!amigo.estaVivo() || !inimigo.estaVivo()) return;
 
         logBatalha.append("--------------------------------------------------\n");
+
+        aplicarBuff();
         
         // 1. amigo Ataca
         logBatalha.append("🔵 " + amigo.getNome() + " preparou um ataque...\n");
@@ -165,6 +231,7 @@ public class TelaBatalha extends JFrame {
 
     private void finalizarBatalha(boolean vitoria) {
         botaoAtacar.setEnabled(false); // Desativa o botão para não clicar mais
+        painelBuff.setVisible(false);
         
         if(vitoria) {
             botaoAtacar.setText("VITÓRIA!");
