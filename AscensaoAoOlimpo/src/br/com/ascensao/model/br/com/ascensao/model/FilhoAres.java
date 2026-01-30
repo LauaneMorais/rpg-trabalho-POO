@@ -15,7 +15,7 @@ public class FilhoAres extends SemiDeus {
 
     @Override
     public void atacar(SemiDeus alvo) {
-        double danoInicial = this.getAtaqueBase() * this.getModificadorDano();// dano no inimigo a priori
+        double danoInicial = this.getAtaqueBase() * this.getStatus().getModificadorDano();// dano no inimigo a priori
         double vidaInimigoInicial = alvo.getPontosvida(); // vida do inimigo antes do ataque
         alvo.receberDano(danoInicial,this);
 

@@ -256,7 +256,7 @@ public class MainTest2 {// classe para debug
             separador();
 
         }
-        System.out.println("Em 300 ataques,de " + hefesto.getNome() + ", " +SorteioBuff.getAux()+" ganharam buffs aleatorios ");
+        System.out.println("Em 300 ataques,de " + hefesto.getNome() + ", " +" ganharam buffs aleatorios ");
         separador();  //media em 80 kills:12
                     //mediana em 80 kills:12 
 
