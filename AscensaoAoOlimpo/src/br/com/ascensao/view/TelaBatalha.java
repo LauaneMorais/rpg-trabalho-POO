@@ -4,7 +4,6 @@ import br.com.ascensao.model.SemiDeus;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 
 public class TelaBatalha extends JFrame {
@@ -53,6 +52,10 @@ public class TelaBatalha extends JFrame {
         mensagemBuff = new JLabel("Um deus olhou para a arena!", SwingConstants.CENTER);
         mensagemBuff.setFont( new Font("Segoe UI", Font.BOLD, 15));
         mensagemBuff.setForeground(Color.BLACK);
+
+        nomeDeusBuff = new JLabel("", SwingConstants.CENTER); 
+        nomeDeusBuff.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        nomeDeusBuff.setForeground(Color.BLACK);
 
         imagemBuff = new JLabel();
         imagemBuff.setHorizontalAlignment(SwingConstants.CENTER);
