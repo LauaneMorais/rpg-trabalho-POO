@@ -15,7 +15,7 @@ public class Equipes {
         this.ladoB = new ArrayList<SemiDeus>();
     }
 
-    private SemiDeus sortearCombatente(String nome) {
+    private SemiDeus sortearCombatente(String nome) {//mudar para switch case???
         // definimos 4 tipos de combatentes, por isso são 4 faces p/ sortear
         int sorteado = Dado.rolar(4);
         if (sorteado == 1) {
@@ -34,28 +34,30 @@ public class Equipes {
     public int formarEquipes() {
         // uma batalha pode ser um duelo de 1 contra 1, ou uma guerra massiva de 100
         // contra 100
-        int tam = Dado.rolar(100);
-        System.out.println(">>>>>>>>> TORNEIO COMEÇA!!");
+        int tam = Dado.rolar(100);//modifiquei pra 5 só para facilitar nos testes
+        System.out.println(">>>>>>>>> TORNEIO COMEÇA!!<<<<<<<<<<<\n");
+        System.out.printf("batalha %d contra %d\n ",tam,tam);
         for (int i = 1; i <= tam; i++) {
             // escolhe combatente aleatório e adiciona no ladoA
-            SemiDeus c1 = sortearCombatente(">>> Combatente A " + i);
+            SemiDeus c1 = sortearCombatente("Combatente A" + i);
             this.ladoA.add(c1);
 
             // escolhe combatente aleatório e adiciona no ladoB
-            SemiDeus c2 = sortearCombatente(">>> Combatente B " + i);
+            SemiDeus c2 = sortearCombatente("Combatente B" + i);
             this.ladoB.add(c2);
         }
 
         return tam;
+
     }
     
     public ArrayList<SemiDeus> getLadoA() {
         return ladoA;
     }
-
     public ArrayList<SemiDeus> getLadoB() {
         return ladoB;
     }
+    
 
     public boolean temSobreviventes(ArrayList<SemiDeus> lado) {
         for (SemiDeus guerreiro : lado) {
@@ -66,50 +68,7 @@ public class Equipes {
         return false; // sobrou ninguém
     }
 
-    /*
-     * Quando chega a vez de um combatente agir, ele escolhe um alvo aleatorio entre
-     * os membros vivos
-     * da equipe adversaria e desfere seu ataque caracterıstico.
-     */
 
-    public void turnoCombate(ArrayList<SemiDeus> atacantes, ArrayList<SemiDeus> defensores) {
-        if (defensores.isEmpty()) { // verificação para ver a lista de defesa está vazia
-            return;
-        }
-
-        for (SemiDeus a : atacantes) {
-            if (!a.estaVivo()) { // para que mortos n ataquem
-                continue;
-            }
-
-            int i = Dado.rolar(defensores.size()) - 1;
-            SemiDeus alvo = defensores.get(i); // atribui um alvo com base em um indice aleatório da lista de defensores
-            System.out.println(">>> " + a.getNome() + " ataca " + alvo.getNome());
-            a.atacar(alvo); // atacante faz o ataque contra o alvo escolhido
-            if (!alvo.estaVivo()) { // verifica se o alvo morreu para poder remove-lo da lista
-                defensores.remove(alvo);
-            }
-        }
-    }
-
-    public void iniciarCombate() {
-        int quantRodadas = 1;
-        while (temSobreviventes(ladoA) && temSobreviventes(ladoB)) {
-            System.out.println("<<<<<< RODADA " + quantRodadas);
-            // lado A ataca
-            turnoCombate(ladoA, ladoB);
-            if (!temSobreviventes(ladoB)) {
-                break;
-            }
-            // lado B contra-ataca
-            turnoCombate(ladoB, ladoA);
-            quantRodadas++;
-        }
-        if (temSobreviventes(ladoA)) {
-            System.out.println("<<<<< VENCEDOR: LADO A");
-        } else {
-            System.out.println("<<<<< VENCEDOR LADO B!!");
-        }
-    }
+    
 
 }

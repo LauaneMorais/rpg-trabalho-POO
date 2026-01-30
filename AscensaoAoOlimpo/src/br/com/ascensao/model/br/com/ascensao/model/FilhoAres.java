@@ -10,12 +10,12 @@ public class FilhoAres extends SemiDeus {
 
     public FilhoAres(String nome) {
         super(nome, 110.0, 20.0, 2.0);//ATRIBUTOS OK
-        this.taxaRouboVida = 0.25;
+        this.taxaRouboVida = 0.25;//alterar taxa de roubo de vida após testes de balanceamento
     }
 
     @Override
     public void atacar(SemiDeus alvo) {
-        double danoInicial = this.getAtaqueBase() * this.getModificadorDano();// dano no inimigo a priori
+        double danoInicial = this.getAtaqueBase() * this.getStatus().getModificadorDano();// dano no inimigo a priori
         double vidaInimigoInicial = alvo.getPontosvida(); // vida do inimigo antes do ataque
         alvo.receberDano(danoInicial,this);
 
