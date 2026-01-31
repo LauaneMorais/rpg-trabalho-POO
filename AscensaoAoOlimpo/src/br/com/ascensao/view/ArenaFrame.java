@@ -15,6 +15,7 @@ public class ArenaFrame extends JFrame {
     private BatalhaController controller;
     private CardLayout cardLayout = new CardLayout();
     private JPanel painelCartoes;
+    private String nomeSenhorDaGuerra;
 
     // tela 1: matriz 5 Colunas
     private JPanel matrizA, matrizB;
@@ -30,10 +31,11 @@ public class ArenaFrame extends JFrame {
 
     private int dueloAtual = 0; // índice que vai rodar a fila (0, 1, 2...)
 
-    public ArenaFrame(Equipes arenaSorteada) {
+    public ArenaFrame(Equipes arenaSorteada, String nomeGuerreiro) {
 
         this.arena = arenaSorteada;
-        this.controller = new BatalhaController(arena);
+        this.controller = new BatalhaController(arenaSorteada);
+        this.nomeSenhorDaGuerra = nomeGuerreiro;
 
         setTitle("Ascensão ao Olimpo - Torneio Oficial");
         setSize(1280, 920);
@@ -218,7 +220,9 @@ public class ArenaFrame extends JFrame {
     //SemiDeus b = arena.getLadoB().get(dueloAtual);
 
     if(a.estaVivo() && b!=null  && b.estaVivo()) {
+
         prepararDueloFocado(a,b);
+        atualizarDestaqueNaMatriz(a, b);
 
         logTerminal.append("--------------------------------------------------\n"); 
 
@@ -240,26 +244,38 @@ public class ArenaFrame extends JFrame {
         } else {
             logTerminal.append( b.getNome() + " sucumbiu!\n");
         }
-        //atualizar destaques na matriz
+       
         cardsA.get(arena.getLadoA().indexOf(a)).atualizarPainel();
         cardsB.get(arena.getLadoB().indexOf(b)).atualizarPainel();
         
-        atualizarDestaqueNaMatriz(a, b);
+        //atualizarDestaqueNaMatriz(a, b);
 
         if(!controller.temSobreviventes(arena.getLadoA()) || !controller.temSobreviventes(arena.getLadoB())) {
+            boolean olimpoVenceu = controller.temSobreviventes(arena.getLadoA());
             String vencedor = controller.temSobreviventes(arena.getLadoA()) ? "OLIMPO (ZEUS)" : "SUBMUNDO (HADES)";
             
             btnAtacar.setEnabled(false);
             btnAtacar.setText(" VITÓRIA DO: " + vencedor);
-            JOptionPane.showMessageDialog(this, "A GUERRA TERMINOU! VENCEDOR: " + vencedor);
+            String mensagemFinal;
+            if(olimpoVenceu){
+                mensagemFinal = "A ordem do Olimpo segue sendo mantida! \n" +
+                    "Zeus foi o vencedor do torneio, e Hades continua onde deve estar…\n" + 
+                    "Parabens " + nomeSenhorDaGuerra + " por garantir que a paz fosse mantida de maneira justa!\n" +
+                    "Nos vemos em breve…:";
+            }else{
+                mensagemFinal = "A ordem do Olimpo pode ser desbalanceada… \n" +
+                    "Hades venceu e o céu estremece!\n" +
+                    "Parabéns " + nomeSenhorDaGuerra + " por garantir uma decisão justa!\n" +
+                    "Nos vemos em breve…";
+            }   
+            JOptionPane.showMessageDialog(this, mensagemFinal);             
         }
-        
     }
-    dueloAtual++;
-    if(dueloAtual >= cardsA.size()) {
+        dueloAtual++;
+        if(dueloAtual >= cardsA.size()) {
         dueloAtual = 0;
         logTerminal.append("\nFIM DO CICLO. REINICIANDO RODADA DE ATAQUES!\n");
-    }
+        }
 
     logTerminal.setCaretPosition(logTerminal.getDocument().getLength());
      
@@ -278,12 +294,22 @@ public class ArenaFrame extends JFrame {
         // limpa bordas de todo mundo
         for(PainelSemiDeus p : cardsA) p.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         for(PainelSemiDeus p : cardsB) p.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+      
+        if(atacanteAtual != null) {
+            int indexA = arena.getLadoA().indexOf(atacanteAtual);
+            if(indexA != -1) cardsA.get(indexA).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));
+        }
+        if(defensorAtual != null) {
+            int indexB = arena.getLadoB().indexOf(defensorAtual);
+            if(indexB != -1) cardsB.get(indexB).setBorder(BorderFactory.createLineBorder(Color.RED, 4));
+        }
+
         
-       int indexA = arena.getLadoA().indexOf(atacanteAtual);
+      /* int indexA = arena.getLadoA().indexOf(atacanteAtual);
        int indexB = arena.getLadoB().indexOf(defensorAtual);
 
        if (indexA != -1) cardsA.get(indexA).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));
-       if (indexB != -1) cardsB.get(indexB).setBorder(BorderFactory.createLineBorder(Color.RED, 4));
+       if (indexB != -1) cardsB.get(indexB).setBorder(BorderFactory.createLineBorder(Color.RED, 4));*/
     }
 
     private void processarIntervencaoDivina(SemiDeus s) {

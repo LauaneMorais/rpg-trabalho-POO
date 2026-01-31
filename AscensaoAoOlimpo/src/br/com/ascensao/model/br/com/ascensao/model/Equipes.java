@@ -34,7 +34,7 @@ public class Equipes {
     public int formarEquipes() {
         // uma batalha pode ser um duelo de 1 contra 1, ou uma guerra massiva de 100
         // contra 100
-        int tam = Dado.rolar(5);//modifiquei pra 5 só para facilitar nos testes (larissa)
+        int tam = Dado.rolar(100);//modifiquei pra 5 só para facilitar nos testes (larissa)
         System.out.println(">>>>>>>>> TORNEIO COMEÇA!!<<<<<<<<<<<\n");
         System.out.printf("batalha %d contra %d\n ",tam,tam);
         for (int i = 1; i <= tam; i++) {
