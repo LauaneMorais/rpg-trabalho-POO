@@ -30,8 +30,10 @@ Conforme a especificação do projeto, cada combatente possui características �
 ---
 
 ### Modos de Visualização
-* **🖥️ Interface Gráfica:** O jogo conta com uma GUI completa feita em **Swing**, exibindo as cartas dos personagens, barras de vida coloridas e logs de batalha em tempo real.
-* **📜 Log de Combate:** Um painel de texto descreve narrativamente cada ação (ataques, bloqueios, críticos e mortes) conforme elas ocorrem.
+* **Interface gráfica:** O jogo conta com uma GUI completa feita em **Swing**, exibindo as cartas dos personagens, barras de vida e logs de batalha em tempo real.
+* **Log de combate:** Um painel de texto descreve narrativamente cada ação (ataques, bloqueios, críticos e mortes) conforme elas ocorrem.
+
+---
 
 ---
 
@@ -55,6 +57,58 @@ Todos os atributos da superclasse e subclasses são `private`. O controle de est
 
 O projeto utiliza `ArrayList` para gerenciar as equipes de tamanho dinâmico e a classe utilitária `Dado` para simular a aleatoriedade dos ataques e alvos.
 
+---
+
+Perfeito. Como a pessoa vai clonar o repositório, ela terá exatamente essa estrutura de pastas. O arquivo `build.xml` e a pasta `nbproject` indicam que o projeto foi criado originalmente no NetBeans, mas vamos focar nas instruções universais via terminal, que funcionam para qualquer pessoa que tenha o Java (JDK) instalado.
+
+Aqui está o texto pronto para você copiar e colar no seu **README.md**.
+
+---
+
+## Instruções de instalação e execução
+
+Siga os passos abaixo para compilar e rodar o projeto em sua máquina local:
+
+### 1. Pré-requisitos
+
+* **Java JDK 11** ou superior instalado.
+* Git (para clonar o repositório).
+
+### 2. Clonar e preparar
+
+Abra o terminal e clone o repositório:
+
+```bash
+git clone https://github.com/LauaneMorais/ascensao-olimpiana.git
+cd ascensao-olimpiana/AscensaoAoOlimpo
+
+```
+
+### 3. Compilação (Build)
+
+Como este é um projeto Java puro, deve-se compilar o código e organizar os arquivos binários. Execute os comandos:
+
+```bash
+# 1. Cria a pasta para os arquivos compilados (bin)
+mkdir -p bin
+
+# 2. Compila todos os pacotes e o Main para a pasta bin
+javac -d bin src/Main.java src/model/*.java src/view/*.java src/controller/*.java src/util/*.java
+
+# 3. Copia as imagens (assets) para a pasta bin
+# Este passo é crucial para que o jogo encontre as imagens durante a execução
+cp -r src/assets bin/
+
+```
+
+### 4. Executando o Jogo
+
+Com a compilação feita e os assets copiados, inicie o jogo com o comando:
+
+```bash
+java -cp bin Main
+
+```
 ---
 ## 👥 Equipe de desenvolvimento
 
