@@ -31,7 +31,7 @@ public class ArenaFrame extends JFrame {
     private int dueloAtual = 0; // índice que vai rodar a fila (0, 1, 2...)
 
     public ArenaFrame(Equipes arenaSorteada) {
-        
+
         this.arena = arenaSorteada;
         this.controller = new BatalhaController(arena);
 
@@ -48,7 +48,7 @@ public class ArenaFrame extends JFrame {
         add(painelCartoes);
         cardLayout.show(painelCartoes, "ARENA");
 
-        atualizarDestaqueNaMatriz(); // começa destaancndo a primeira dupla
+        atualizarDestaqueNaMatriz(arena.getLadoA().get(0), arena.getLadoB().get(0)); // começa destaancndo a primeira dupla
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -147,7 +147,7 @@ public class ArenaFrame extends JFrame {
             for(PainelSemiDeus p : cardsB) matrizB.add(p);
             
             // atualiza quem eh a próxima dupla da fila na arena
-            atualizarDestaqueNaMatriz();
+            atualizarDestaqueNaMatriz(arena.getLadoA().get(dueloAtual), arena.getLadoB().get(dueloAtual));
             
             // troca para a tela da arena 
             cardLayout.show(painelCartoes, "ARENA");
@@ -170,24 +170,39 @@ public class ArenaFrame extends JFrame {
     }
 
     private void irParaDueloImediato() {
-        prepararDueloFocado();
-        cardLayout.show(painelCartoes, "DUELO");
+        procurarProximoAtacanteVivo();
+
+        SemiDeus heroiOlimpo = arena.getLadoA().get(dueloAtual);
+
+        SemiDeus heroiSubmundo = controller.escolherAlvo(arena.getLadoB());
+
+        if(heroiOlimpo != null && heroiSubmundo != null){
+
+            prepararDueloFocado(heroiOlimpo, heroiSubmundo);
+            cardLayout.show(painelCartoes, "DUELO");
+            
+        }else{
+
+            JOptionPane.showMessageDialog(this, "Não há combatentes vivos suficientes para iniciar o duelo.");
+            return;
+        }
     }
 
-    private void prepararDueloFocado() {
-        // pula mortos para achar a próxima dupla que pode lutar
-        procurarProximaDuplaViva();
-
+    private void prepararDueloFocado(SemiDeus a, SemiDeus b) {
+        
         container1v1.removeAll();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 50, 0, 50);
+      
 
-        container1v1.add(cardsA.get(dueloAtual), gbc);
+        container1v1.add(cardsA.get(arena.getLadoA().indexOf(a)), gbc);
+
         JLabel vsLabel = new JLabel("VS");
         vsLabel.setFont(new Font("Segoe UI", Font.BOLD, 100)); // VS Gigante
         vsLabel.setForeground(new Color(220, 50, 50));
         container1v1.add(vsLabel, gbc);
-        container1v1.add(cardsB.get(dueloAtual), gbc);
+
+        container1v1.add(cardsB.get(arena.getLadoB().indexOf(b)), gbc);
 
         painelBuff.setVisible(false);
         container1v1.revalidate();
@@ -195,96 +210,107 @@ public class ArenaFrame extends JFrame {
     }
 
  private void realizarAtaqueERevezar() {
-       
-        prepararDueloFocado(); 
 
-        if (!controller.temSobreviventes(arena.getLadoA()) || !controller.temSobreviventes(arena.getLadoB())) {
-            JOptionPane.showMessageDialog(this, "A GUERRA TERMINOU!");
-            return;
+    procurarProximoAtacanteVivo();
+
+    SemiDeus a = arena.getLadoA().get(dueloAtual);
+    SemiDeus b = controller.escolherAlvo(arena.getLadoB());
+    //SemiDeus b = arena.getLadoB().get(dueloAtual);
+
+    if(a.estaVivo() && b!=null  && b.estaVivo()) {
+        prepararDueloFocado(a,b);
+
+        logTerminal.append("--------------------------------------------------\n"); 
+
+        processarIntervencaoDivina(a);
+
+        double hpB_inicial = b.getPontosvida();
+        a.atacar(b);
+        double danoB = hpB_inicial - b.getPontosvida();
+
+        logTerminal.append( a.getNome() + " ataca " + b.getNome() + "\n");
+        logTerminal.append( b.getNome() + " recebeu " + danoB + " de dano. Vida: " + b.getPontosvida() + "\n");
+
+        if(b.estaVivo()) {
+            double hpA_inicial = a.getPontosvida();
+            b.atacar(a);
+            double danoA = hpA_inicial - a.getPontosvida();
+            logTerminal.append( b.getNome() + " contra-ataca!\n");
+            logTerminal.append( a.getNome() + " recebeu " + danoA + " de dano. Vida: " + a.getPontosvida() + "\n");
+        } else {
+            logTerminal.append( b.getNome() + " sucumbiu!\n");
         }
+        //atualizar destaques na matriz
+        cardsA.get(arena.getLadoA().indexOf(a)).atualizarPainel();
+        cardsB.get(arena.getLadoB().indexOf(b)).atualizarPainel();
+        
+        atualizarDestaqueNaMatriz(a, b);
 
-        SemiDeus a = arena.getLadoA().get(dueloAtual);
-        SemiDeus b = arena.getLadoB().get(dueloAtual);
-
-        if (a.estaVivo() && b.estaVivo()) {
-            logTerminal.append("--------------------------------------------------\n");
-            processarIntervencaoDivina(a); 
-
-            double hpB_inicial = b.getPontosvida();
-            a.atacar(b);
-            double danoB = hpB_inicial - b.getPontosvida();
+        if(!controller.temSobreviventes(arena.getLadoA()) || !controller.temSobreviventes(arena.getLadoB())) {
+            String vencedor = controller.temSobreviventes(arena.getLadoA()) ? "OLIMPO (ZEUS)" : "SUBMUNDO (HADES)";
             
-            logTerminal.append("\u2694 " + a.getNome() + " ataca " + b.getNome() + "\n");
-            logTerminal.append("\u25C9 " + b.getNome() + " recebeu " + danoB + " de dano. Vida: " + b.getPontosvida() + "\n");
-
-            if (b.estaVivo()) {
-                double hpA_inicial = a.getPontosvida();
-                b.atacar(a);
-                double danoA = hpA_inicial - a.getPontosvida();
-                logTerminal.append("\u2694 " + b.getNome() + " contra-ataca!\n");
-                logTerminal.append("\u25C9 " + a.getNome() + " recebeu " + danoA + " de dano. Vida: " + a.getPontosvida() + "\n");
-            } else {
-                logTerminal.append("\u2620 " + b.getNome() + " sucumbiu!\n");
-            }
-
-            cardsA.get(dueloAtual).atualizarPainel();
-            cardsB.get(dueloAtual).atualizarPainel();
-        }
-
-        dueloAtual++; 
-        if (dueloAtual >= cardsA.size()) {
-            dueloAtual = 0;
-            logTerminal.append("\n🔄 FIM DO CICLO. REINICIANDO RODADA DE ATAQUES!\n");
+            btnAtacar.setEnabled(false);
+            btnAtacar.setText(" VITÓRIA DO: " + vencedor);
+            JOptionPane.showMessageDialog(this, "A GUERRA TERMINOU! VENCEDOR: " + vencedor);
         }
         
-        logTerminal.setCaretPosition(logTerminal.getDocument().getLength());
+    }
+    dueloAtual++;
+    if(dueloAtual >= cardsA.size()) {
+        dueloAtual = 0;
+        logTerminal.append("\nFIM DO CICLO. REINICIANDO RODADA DE ATAQUES!\n");
     }
 
-    private void procurarProximaDuplaViva() {
+    logTerminal.setCaretPosition(logTerminal.getDocument().getLength());
+     
+    }
+
+    private void procurarProximoAtacanteVivo() {
         int limite = 0;
-        while (!(arena.getLadoA().get(dueloAtual).estaVivo() && arena.getLadoB().get(dueloAtual).estaVivo()) && limite < cardsA.size()) {
+        while (!arena.getLadoA().get(dueloAtual).estaVivo() && limite < arena.getLadoA().size()) {
             dueloAtual++;
-            if (dueloAtual >= cardsA.size()) dueloAtual = 0;
+            if (dueloAtual >= arena.getLadoA().size()) dueloAtual = 0;
             limite++;
         }
     }
 
-    private void atualizarDestaqueNaMatriz() {
+    private void atualizarDestaqueNaMatriz(SemiDeus atacanteAtual, SemiDeus defensorAtual) {
         // limpa bordas de todo mundo
         for(PainelSemiDeus p : cardsA) p.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         for(PainelSemiDeus p : cardsB) p.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         
-        // destaca a próxima dupla na arena
-        cardsA.get(dueloAtual).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));
-        cardsB.get(dueloAtual).setBorder(BorderFactory.createLineBorder(Color.RED, 4));
+       int indexA = arena.getLadoA().indexOf(atacanteAtual);
+       int indexB = arena.getLadoB().indexOf(defensorAtual);
+
+       if (indexA != -1) cardsA.get(indexA).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));
+       if (indexB != -1) cardsB.get(indexB).setBorder(BorderFactory.createLineBorder(Color.RED, 4));
     }
 
     private void processarIntervencaoDivina(SemiDeus s) {
         if (br.com.ascensao.util.ChanceBuff.Chance()) {
-            // 1. Recebe a String da Lau: "Dano aumenta 20% (Buff de Hermes)"
+           
             String retornoBuff = br.com.ascensao.util.SorteioBuff.aplicarBuffAleatorio(s); 
             
-            // 2. SEPARAÇÃO DAS PARTES (A "Fatia")
-            // efeito = "Dano aumenta 20%" | deus = "Hermes"
+           
             int indexParenteses = retornoBuff.indexOf(" (");
             String efeito = retornoBuff.substring(0, indexParenteses);
             String deus = retornoBuff.substring(retornoBuff.lastIndexOf("de ") + 3, retornoBuff.length() - 1);
 
-            painelBuff.setVisible(true); // Remova o 'aFlag:' se o editor colocar
+            painelBuff.setVisible(true); 
             
-            // 3. LAYOUT (Banner Amarelo): Quem para Quem
+           
             labelTextoBuff.setText("A benção de " + deus.toUpperCase() + " foi concedida a " + s.getNome() + "!");
             
-            // 4. LOG (Terminal Verde): O que aconteceu
+           
             logTerminal.append("✨ INTERVENÇÃO: " + efeito + "\n");
             
-            // 5. IMAGEM (Usa o nome do deus extraído)
+            
             String file = (deus.toLowerCase().contains("dionisio") ? "maldicao_" : "bencao_") + deus.toLowerCase() + ".png";
             URL url = getClass().getResource("/br/com/ascensao/assets/" + file);
             
             if(url != null) {
                 ImageIcon icon = new ImageIcon(url);
-                // Removido 'width:' e 'height:' para não dar erro
+                
                 labelIconeBuff.setIcon(new ImageIcon(icon.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH)));
             }
         } else {
@@ -303,4 +329,5 @@ public class ArenaFrame extends JFrame {
             cardsB.add(new PainelSemiDeus(s));
         }
     }
+
 }

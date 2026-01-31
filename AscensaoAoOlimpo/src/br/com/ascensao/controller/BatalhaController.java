@@ -58,7 +58,7 @@ public class BatalhaController {
         }
     
 
-    private SemiDeus escolherAlvo(ArrayList<SemiDeus> lista){//metodo auxiliar para escolher alvo aleatorio
+    public SemiDeus escolherAlvo(ArrayList<SemiDeus> lista){//metodo auxiliar para escolher alvo aleatorio
         List<SemiDeus> guerreirosVivos = new ArrayList<>();//criando objeto guerreiros vivos
 
             for (SemiDeus vivos : lista){ //for each pra percorrer a lista e filtrar só os vivos.
@@ -120,13 +120,13 @@ public class BatalhaController {
         ArrayList<SemiDeus> ladoB = arenaBatalha.getLadoB();
         // se um lado nao tem mais sobreviventes, fim de jogo
         if (!temSobreviventes(ladoA) || !temSobreviventes(ladoB)) {
-            return "\n🏛️ O DESTINO FOI SELADO. FIM DE JOGO!";
+            return "\nO DESTINO FOI SELADO. FIM DE JOGO!";
         }
 
         // se o indexA ultrapassar o tamanho da lista, reseta e inicia nova rodada
         if (indexA >= ladoA.size()) {
             indexA = 0;
-            return "\n--- 🔄 NOVA RODADA INICIADA ---";
+            return "\n---NOVA RODADA INICIADA ---";
         }
         // pega o combatente atual do lado A
         SemiDeus atacante = ladoA.get(indexA);
@@ -149,17 +149,17 @@ public class BatalhaController {
 
                 // montagem do Log detalhado
                 StringBuilder sb = new StringBuilder();
-                sb.append("\n⚔️ ").append(nomeAtacante).append(" ataca ").append(nomeAlvo).append("\n");
-                sb.append("💥 ").append(nomeAlvo).append(" recebeu ").append(dano).append(" de dano.\n");
-                sb.append("❤️ Vida restante: ").append(alvo.getPontosvida()).append("\n");
+                sb.append(nomeAtacante).append(" ataca ").append(nomeAlvo).append("\n");
+                sb.append(nomeAlvo).append(" recebeu ").append(dano).append(" de dano.\n");
+                sb.append("Vida restante: ").append(alvo.getPontosvida()).append("\n");
                 // verifica se o alvo morreu
                 if (!alvo.estaVivo()) {
-                    sb.append("💀 ").append(nomeAlvo).append(" tombou em combate!\n");
+                    sb.append(nomeAlvo).append(" tombou em combate!\n");
                 }
                 return sb.toString();
             }
         }
 
-        return "⏭️ O combatente atual está caído, passando para o próximo...";
+        return "O combatente atual está caído, passando para o próximo...";
     }
 }
