@@ -2,9 +2,9 @@ package br.com.ascensao.model;
 
 public class BuffPoseidon implements EfeitoDivino{
     @Override
-    public void aplicarBuff(SemiDeus alvo){
+    public String aplicarBuff(SemiDeus alvo){
         alvo.getStatus().setTemReflexo(true);
-        System.out.println("Poseidon te concedeu seu escudo e reflete o dano do inimigo");
+        return "Poseidon te concedeu seu escudo e reflete o dano do inimigo";
     }
 
 }

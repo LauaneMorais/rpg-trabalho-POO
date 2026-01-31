@@ -26,11 +26,10 @@ public class SorteioBuff {
 
         String nomeCompleto = efeitoSorteado.getClass().getSimpleName();
         String nomeDeus = nomeCompleto.replace("Buff", "");
+    
+        String mensagem = efeitoSorteado.aplicarBuff(alvo);
         
-        
-        efeitoSorteado.aplicarBuff(alvo);
-        
-        return nomeDeus;
+        return mensagem + " (Buff de " + nomeDeus + ")";
     }
 
   

@@ -35,7 +35,7 @@ public class PainelSemiDeus extends JPanel {
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ));
 
-        this.setPreferredSize(new Dimension(400, 340));
+        this.setPreferredSize(new Dimension(210, 280));
 
         inicializarComponentes();
         atualizarPainel(); // chama uma vez para pintar a tela inicial

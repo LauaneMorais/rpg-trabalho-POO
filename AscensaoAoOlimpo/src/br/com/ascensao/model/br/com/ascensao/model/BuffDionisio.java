@@ -2,9 +2,9 @@ package br.com.ascensao.model;
 
 public class BuffDionisio implements EfeitoDivino{
     @Override
-    public void aplicarBuff(SemiDeus alvo){
+    public String aplicarBuff(SemiDeus alvo){
         alvo.getStatus().setEstaAtordoado(true);//dano 0
-        System.out.println("Seu atacante ficou atordoado por beber demais e errou o golpe!");
+        return "Seu atacante ficou atordoado por beber demais e errou o golpe!";
     }
 
 }

@@ -1,13 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
-*/
 package br.com.ascensao;
 
-import br.com.ascensao.view.ArenaFrame;
+import br.com.ascensao.view.MenuPrincipal;
+import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
-        new ArenaFrame();
+        SwingUtilities.invokeLater(() -> {
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setLocationRelativeTo(null);
+            menu.setVisible(true);
+        });
     }
 }

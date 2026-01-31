@@ -2,8 +2,8 @@ package br.com.ascensao.model;
 
 public class BuffDemeter implements EfeitoDivino{
     @Override
-    public void aplicarBuff(SemiDeus alvo){
+    public String aplicarBuff(SemiDeus alvo){
         alvo.getStatus().setFrutaSagrada(true);
-        System.out.println("Demeter te concedeu a fruta sagrada que cura");
+        return "Demeter te concedeu a fruta sagrada que cura";
     }
 }

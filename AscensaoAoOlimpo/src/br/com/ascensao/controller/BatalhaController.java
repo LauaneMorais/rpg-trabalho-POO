@@ -99,31 +99,66 @@ public class BatalhaController {
         }
     }
     // larissa: init teste
-   public String dueloDeDuplas(){
+  private String formatarNome(SemiDeus s, String lado) {
+        String deus = "";
+        String classe = s.getClass().getSimpleName();
+        
+        // Identifica o Panteão
+        if (classe.contains("Hecate")) deus = "Hécate";
+        else if (classe.contains("Ares")) deus = "Ares";
+        else if (classe.contains("Apolo")) deus = "Apolo";
+        else if (classe.contains("Hefesto")) deus = "Hefesto";
 
-    ArrayList<SemiDeus> ladoA = arenaBatalha.getLadoA();
-    ArrayList<SemiDeus> ladoB = arenaBatalha.getLadoB();
-
-    //verificar se a rodada acabou ou se alguem ganhou
-    if(!temSobreviventes(ladoA) || !temSobreviventes(ladoB))
-        return "Fim de jogo!";
-    if(indexA >= ladoA.size()) {
-        indexA = 0;
-        return "Nova rodada!";
+        // Descobre a posição na lista para o ID (A1, B2, etc)
+        int posicao = (lado.equals("A") ? arenaBatalha.getLadoA().indexOf(s) : arenaBatalha.getLadoB().indexOf(s)) + 1;
+        
+        return "Filho de " + deus + " (" + lado + posicao + ")";
     }
-    SemiDeus atacante = ladoA.get(indexA);
-    indexA++;
 
-    if(atacante.estaVivo()){
-        SemiDeus alvo = escolherAlvo(ladoB);
-        if (alvo != null) {
-            atacante.atacar(alvo);
-            return atacante.getNome() + "atacou" + alvo.getNome();
+    public String dueloDeDuplas() {
+        ArrayList<SemiDeus> ladoA = arenaBatalha.getLadoA();
+        ArrayList<SemiDeus> ladoB = arenaBatalha.getLadoB();
+
+        if (!temSobreviventes(ladoA) || !temSobreviventes(ladoB)) {
+            return "\n🏛️ O DESTINO FOI SELADO. FIM DE JOGO!";
         }
-    }
 
-    return "O combatente foi tombado, próximo...";
-   }
-    
+        if (indexA >= ladoA.size()) {
+            indexA = 0;
+            return "\n--- 🔄 NOVA RODADA INICIADA ---";
+        }
+
+        SemiDeus atacante = ladoA.get(indexA);
+        indexA++;
+
+        if (atacante.estaVivo()) {
+            SemiDeus alvo = escolherAlvo(ladoB);
+            
+            if (alvo != null) {
+                // Captura dados antes do ataque para o log detalhado
+                double vidaAntes = alvo.getPontosvida();
+                String nomeAtacante = formatarNome(atacante, "A");
+                String nomeAlvo = formatarNome(alvo, "B");
+
+                atacante.atacar(alvo);
+
+                // Cálculo do dano real (Igual ao seu terminal)
+                double dano = vidaAntes - alvo.getPontosvida();
+
+                // Montagem do Log detalhado
+                StringBuilder sb = new StringBuilder();
+                sb.append("\n⚔️ ").append(nomeAtacante).append(" ataca ").append(nomeAlvo).append("\n");
+                sb.append("💥 ").append(nomeAlvo).append(" recebeu ").append(dano).append(" de dano.\n");
+                sb.append("❤️ Vida restante: ").append(alvo.getPontosvida()).append("\n");
+
+                if (!alvo.estaVivo()) {
+                    sb.append("💀 ").append(nomeAlvo).append(" tombou em combate!\n");
+                }
+                return sb.toString();
+            }
+        }
+
+        return "⏭️ O combatente atual está caído, passando para o próximo...";
+    }
     //larissa: end teste
 }

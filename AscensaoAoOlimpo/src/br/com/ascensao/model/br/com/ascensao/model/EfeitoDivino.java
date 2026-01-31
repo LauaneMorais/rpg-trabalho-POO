@@ -1,8 +1,8 @@
 package br.com.ascensao.model;
 
 public interface EfeitoDivino {
-
-    void aplicarBuff(SemiDeus alvo);
+    // mudei de void pra string pra testar
+    String aplicarBuff(SemiDeus alvo);
 
 }
 

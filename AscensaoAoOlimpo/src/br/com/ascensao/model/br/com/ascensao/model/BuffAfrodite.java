@@ -2,8 +2,8 @@ package br.com.ascensao.model;
 
 public class BuffAfrodite implements EfeitoDivino{
     @Override
-    public void aplicarBuff(SemiDeus alvo){
+    public String aplicarBuff(SemiDeus alvo){ // tirando o public void dos buffs e o system out substituindo por return
         alvo.getStatus().setModificadorDano(0.5);
-        System.out.println("Afodite te concedeu uma benção, seu dano foi reduzido pela metade");
+        return "Afodite te concedeu uma benção, seu dano foi reduzido pela metade";
     }
 }

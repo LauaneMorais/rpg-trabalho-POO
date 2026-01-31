@@ -44,7 +44,7 @@ public class MenuPrincipal extends JFrame {
         JPanel topo = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 50));
         topo.setOpaque(false);
         JLabel titulo = new JLabel("ASCENSÃO AO OLIMPO! 🏛️");
-        titulo.setFont(new Font("Segoe UI", Font.BOLD, 48));
+        titulo.setFont(new Font("Segoe UI Symbol", Font.BOLD, 48));
         titulo.setForeground(new Color(218, 165, 32)); // cor dourado
         topo.add(titulo);
         painel.add(topo, BorderLayout.NORTH);
@@ -173,8 +173,6 @@ public class MenuPrincipal extends JFrame {
         return painel;
     }
 
- 
-
 
 
 
@@ -184,7 +182,7 @@ public class MenuPrincipal extends JFrame {
     private JButton criarBotaoEstilizado(String texto) {
         JButton btn = new JButton(texto);
         btn.setPreferredSize(new Dimension(300, 60));
-        btn.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        btn.setFont(new Font("Segoe UI Symbol", Font.BOLD, 18));
         btn.setBackground(new Color(50, 50, 50));
         btn.setForeground(Color.WHITE);
         btn.setFocusPainted(false);
@@ -219,30 +217,25 @@ public class MenuPrincipal extends JFrame {
 }
 
     private void confirmarInicioBatalha() {
-    Equipes arena = new Equipes();
-    
-    // O Back-end sorteia e nos diz o número aqui:
-    int totalSorteado = arena.formarEquipes(); 
+        Equipes arena = new Equipes();
+        int totalSorteado = arena.formarEquipes(); 
 
-    // Agora mostramos esse número sorteado no Front!
-    JOptionPane.showMessageDialog(this, 
-        "O Destino decidiu!\n" +
-        "O Torneio terá " + totalSorteado + " combatentes de cada lado.\n" +
-        "Prepare seu coração, " + nomeSenhorDaGuerra + "!");
+        JOptionPane.showMessageDialog(this, 
+            "O Destino decidiu!\n" +
+            "O Torneio terá " + totalSorteado + " combatentes de cada lado.\n" +
+            "Prepare seu coração, " + nomeSenhorDaGuerra + "!");
 
-    // Pegamos os líderes (primeiros da lista) para exibir na tela de batalha 1x1
-    SemiDeus heroi = arena.getLadoA().get(0);
-    SemiDeus inimigo = arena.getLadoB().get(0);
+      
+        ArenaTeste arenaFinal = new ArenaTeste(arena);
+        arenaFinal.setVisible(true);
 
-    TelaBatalha telaBatalha = new TelaBatalha(heroi, inimigo);
-    telaBatalha.setVisible(true);
-
-    this.dispose();
+        this.dispose();
     }
+
 
     private void mostrarCreditos() {
         JTextArea creditos = new JTextArea(
-            "Espero que tgoste de Ascensão ao Olimpo!\n\n" +
+            "Espero que goste de Ascensão ao Olimpo!\n\n" +
             "Desenvolvido por:\nLarissa Cena\nLauane Morais\nLuiza Accioly\nMaciele Ramos\n\n\n" + 
             "Disciplina: Programação Orientada a Objetos.\n\n" +
             "Agradecimentos:\nProf. Maily\nProf André Yoshiaki\nDeuses do Olimpo"
@@ -266,6 +259,6 @@ public class MenuPrincipal extends JFrame {
         );
     }
 
-    }
+ }
 
 
