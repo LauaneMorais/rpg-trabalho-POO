@@ -226,7 +226,7 @@ public class MenuPrincipal extends JFrame {
             "Prepare seu coração, " + nomeSenhorDaGuerra + "!");
 
       
-        ArenaTeste arenaFinal = new ArenaTeste(arena);
+        ArenaFrame arenaFinal = new ArenaFrame(arena);
         arenaFinal.setVisible(true);
 
         this.dispose();

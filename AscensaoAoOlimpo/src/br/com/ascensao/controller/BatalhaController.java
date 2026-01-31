@@ -98,59 +98,61 @@ public class BatalhaController {
             System.out.println("\nVENCEDOR LADO B!!");
         }
     }
-    // larissa: init teste
+    // metodo para formatar o nome do semi deus com o lado e numero (larissa)
   private String formatarNome(SemiDeus s, String lado) {
         String deus = "";
         String classe = s.getClass().getSimpleName();
-        
-        // Identifica o Panteão
+    
+        // descobre o deus pai baseado na classe
         if (classe.contains("Hecate")) deus = "Hécate";
         else if (classe.contains("Ares")) deus = "Ares";
         else if (classe.contains("Apolo")) deus = "Apolo";
         else if (classe.contains("Hefesto")) deus = "Hefesto";
 
-        // Descobre a posição na lista para o ID (A1, B2, etc)
+        // descobre a posição na lista para o ID (A1, B2, etc) 
         int posicao = (lado.equals("A") ? arenaBatalha.getLadoA().indexOf(s) : arenaBatalha.getLadoB().indexOf(s)) + 1;
         
         return "Filho de " + deus + " (" + lado + posicao + ")";
     }
-
-    public String dueloDeDuplas() {
+    // metodo para realizar o duelo de duplas (larissa)
+    public String dueloDeDuplas() { 
         ArrayList<SemiDeus> ladoA = arenaBatalha.getLadoA();
         ArrayList<SemiDeus> ladoB = arenaBatalha.getLadoB();
-
+        // se um lado nao tem mais sobreviventes, fim de jogo
         if (!temSobreviventes(ladoA) || !temSobreviventes(ladoB)) {
             return "\n🏛️ O DESTINO FOI SELADO. FIM DE JOGO!";
         }
 
+        // se o indexA ultrapassar o tamanho da lista, reseta e inicia nova rodada
         if (indexA >= ladoA.size()) {
             indexA = 0;
             return "\n--- 🔄 NOVA RODADA INICIADA ---";
         }
-
+        // pega o combatente atual do lado A
         SemiDeus atacante = ladoA.get(indexA);
         indexA++;
 
+        // se o combatente estiver vivo, escolhe um alvo do lado B e ataca
         if (atacante.estaVivo()) {
             SemiDeus alvo = escolherAlvo(ladoB);
-            
+            // se encontrou um alvo vivo
             if (alvo != null) {
-                // Captura dados antes do ataque para o log detalhado
+                // captura dados antes do ataque 
                 double vidaAntes = alvo.getPontosvida();
                 String nomeAtacante = formatarNome(atacante, "A");
                 String nomeAlvo = formatarNome(alvo, "B");
 
                 atacante.atacar(alvo);
 
-                // Cálculo do dano real (Igual ao seu terminal)
+                // calculo do dano real
                 double dano = vidaAntes - alvo.getPontosvida();
 
-                // Montagem do Log detalhado
+                // montagem do Log detalhado
                 StringBuilder sb = new StringBuilder();
                 sb.append("\n⚔️ ").append(nomeAtacante).append(" ataca ").append(nomeAlvo).append("\n");
                 sb.append("💥 ").append(nomeAlvo).append(" recebeu ").append(dano).append(" de dano.\n");
                 sb.append("❤️ Vida restante: ").append(alvo.getPontosvida()).append("\n");
-
+                // verifica se o alvo morreu
                 if (!alvo.estaVivo()) {
                     sb.append("💀 ").append(nomeAlvo).append(" tombou em combate!\n");
                 }
@@ -160,5 +162,4 @@ public class BatalhaController {
 
         return "⏭️ O combatente atual está caído, passando para o próximo...";
     }
-    //larissa: end teste
 }

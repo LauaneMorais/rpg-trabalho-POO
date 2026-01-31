@@ -27,6 +27,8 @@ public class SorteioBuff {
         String nomeCompleto = efeitoSorteado.getClass().getSimpleName();
         String nomeDeus = nomeCompleto.replace("Buff", "");
     
+    
+        // chamamos o método aplicarBuff que agora retorna uma string explicativa, essa mensagem será enviada direto para o log (larissa)
         String mensagem = efeitoSorteado.aplicarBuff(alvo);
         
         return mensagem + " (Buff de " + nomeDeus + ")";
