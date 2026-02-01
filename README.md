@@ -35,8 +35,6 @@ Conforme a especificação do projeto, cada combatente possui características �
 
 ---
 
----
-
 ## 🛠 Defesa técnica 
 
 Para atender aos critérios de avaliação da disciplina, a arquitetura do software foca nos quatro pilares fundamentais:
