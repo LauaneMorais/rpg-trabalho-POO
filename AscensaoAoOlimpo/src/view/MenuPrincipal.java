@@ -37,7 +37,7 @@ public class MenuPrincipal extends JFrame {
         JPanel topo = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 50));
         topo.setOpaque(false);
         JLabel titulo = new JLabel("ASCENSÃO AO OLIMPO! 🏛️");
-        titulo.setFont(new Font("Segoe UI", Font.BOLD, 48));
+        titulo.setFont(new Font("Segoe UI Symbol", Font.BOLD, 48));
         titulo.setForeground(new Color(218, 165, 32)); 
         topo.add(titulo);
         painel.add(topo, BorderLayout.NORTH);
@@ -82,7 +82,7 @@ public class MenuPrincipal extends JFrame {
             "   Quem vencerá? Hades ou Zeus?"
         );
 
-        textoHistoria.setFont(new Font("Segoe UI", Font.ITALIC, 22));
+        textoHistoria.setFont(new Font("Segoe UI Symbol", Font.ITALIC, 22));
         textoHistoria.setForeground(new Color(200, 200, 200));
         textoHistoria.setBackground(new Color(10, 10, 15));
         textoHistoria.setEditable(false);
@@ -123,12 +123,12 @@ public class MenuPrincipal extends JFrame {
         gbc.gridy = 0; painel.add(lblImagem, gbc);
 
         JLabel lblPergunta = new JLabel("Qual é o seu nome, estrategista?");
-        lblPergunta.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        lblPergunta.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
         lblPergunta.setForeground(Color.WHITE);
         gbc.gridy = 1; painel.add(lblPergunta, gbc);
 
         JTextField txtNome = new JTextField(15);
-        txtNome.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        txtNome.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
         txtNome.setHorizontalAlignment(JTextField.CENTER);
         gbc.gridy = 2; painel.add(txtNome, gbc);
 
@@ -153,7 +153,7 @@ public class MenuPrincipal extends JFrame {
     private JButton criarBotaoEstilizado(String texto) {
         JButton btn = new JButton(texto);
         btn.setPreferredSize(new Dimension(300, 60));
-        btn.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        btn.setFont(new Font("Segoe UI Symbol", Font.BOLD, 18));
         btn.setBackground(new Color(50, 50, 50));
         btn.setForeground(Color.WHITE);
         btn.setFocusPainted(false);
@@ -208,7 +208,7 @@ public class MenuPrincipal extends JFrame {
             "Agradecimentos:\nProf. Maily\nProf André Yoshiaki\nDeuses do Olimpo"
         );
 
-        creditos.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        creditos.setFont(new Font("Segoe UI Symbol", Font.BOLD, 14));
         creditos.setForeground(new Color(218, 165, 32)); 
         creditos.setBackground(new Color(30, 30, 35)); 
         creditos.setEditable(false);

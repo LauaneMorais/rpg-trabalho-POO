@@ -122,11 +122,11 @@ public class ArenaFrame extends JFrame {
         painelBuff.setVisible(false);
 
         JLabel header = new JLabel("Um deus olhou para a arena!", SwingConstants.CENTER);
-        header.setFont(new Font("Segoe UI", Font.BOLD, 30));
+        header.setFont(new Font("Segoe UI Symbol", Font.BOLD, 30));
         labelIconeBuff = new JLabel();
         labelIconeBuff.setHorizontalAlignment(SwingConstants.CENTER);
         labelTextoBuff = new JLabel("", SwingConstants.CENTER);
-        labelTextoBuff.setFont(new Font("Segoe UI", Font.ITALIC, 20));
+        labelTextoBuff.setFont(new Font("Segoe UI Symbol", Font.ITALIC, 20));
 
         painelBuff.add(header, BorderLayout.NORTH);
         painelBuff.add(labelIconeBuff, BorderLayout.CENTER);
@@ -229,7 +229,7 @@ public class ArenaFrame extends JFrame {
         if (indexA != -1) container1v1.add(cardsA.get(indexA), gbc);
 
         JLabel vsLabel = new JLabel("VS");
-        vsLabel.setFont(new Font("Segoe UI", Font.BOLD, 100)); 
+        vsLabel.setFont(new Font("Segoe UI Symbol", Font.BOLD, 100)); 
         vsLabel.setForeground(new Color(220, 50, 50));
         container1v1.add(vsLabel, gbc);
 

@@ -41,7 +41,7 @@ public class PainelSemiDeus extends JPanel {
     private void inicializarComponentes() {
         nomePersonagem = new JLabel(semiDeus.getNome(), SwingConstants.CENTER); 
         nomePersonagem.setForeground(Color.WHITE); 
-        nomePersonagem.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        nomePersonagem.setFont(new Font("Segoe UI Symbol", Font.BOLD, 14));
         this.add(nomePersonagem, BorderLayout.NORTH); 
 
         imagemPersonagem = new JLabel();

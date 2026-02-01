@@ -53,11 +53,11 @@ public class TelaBatalha extends JFrame {
         painelBuff.setPreferredSize(new Dimension(1100, 120));
 
         mensagemBuff = new JLabel("Um deus olhou para a arena!", SwingConstants.CENTER);
-        mensagemBuff.setFont( new Font("Segoe UI", Font.BOLD, 18));
+        mensagemBuff.setFont( new Font("Segoe UI Symbol", Font.BOLD, 18));
         mensagemBuff.setForeground(Color.BLACK);
 
         nomeDeusBuff = new JLabel("", SwingConstants.CENTER); 
-        nomeDeusBuff.setFont(new Font("Segoe UI", Font.ITALIC, 16));
+        nomeDeusBuff.setFont(new Font("Segoe UI Symbol", Font.ITALIC, 16));
         nomeDeusBuff.setForeground(Color.BLACK);
 
         imagemBuff = new JLabel();
@@ -89,7 +89,7 @@ public class TelaBatalha extends JFrame {
 
         // --- CENTRO: VS ---
         JLabel labelVs = new JLabel("VS");
-        labelVs.setFont(new Font("Segoe UI", Font.BOLD, 48));
+        labelVs.setFont(new Font("Segoe UI Symbol", Font.BOLD, 48));
         labelVs.setForeground(new Color(200, 50, 50)); // Vermelho Sangue
         
         gbc.gridx = 1; // Coluna 1 (Meio)
@@ -118,7 +118,7 @@ public class TelaBatalha extends JFrame {
 
         // Botão de Ação
         botaoAtacar = new JButton("⚔️ REALIZAR TURNO ⚔️");
-        botaoAtacar.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        botaoAtacar.setFont(new Font("Segoe UI Symbol", Font.BOLD, 18));
         botaoAtacar.setBackground(new Color(100, 0, 0));
         botaoAtacar.setForeground(Color.WHITE);
         botaoAtacar.setFocusPainted(false);
