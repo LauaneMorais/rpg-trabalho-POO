@@ -76,7 +76,11 @@ public abstract class SemiDeus {
     }
 
     public double getPontosvida() {
-        return pontosvida;
+        if (pontosvida > 0) {
+            return pontosvida;
+        } else {
+            return 0;
+        }
     }
 
     public void setPontosvida(double pontosvida) {

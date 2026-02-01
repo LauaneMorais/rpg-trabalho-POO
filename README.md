@@ -80,7 +80,7 @@ Abra o terminal e clone o repositório:
 
 ```bash
 git clone https://github.com/LauaneMorais/ascensao-olimpiana.git
-cd ascensao-olimpiana/AscensaoAoOlimpo
+cd ascensao-olimpiana/rpg-trabalho-poo/AscensaoAoOlimpo
 
 ```
 

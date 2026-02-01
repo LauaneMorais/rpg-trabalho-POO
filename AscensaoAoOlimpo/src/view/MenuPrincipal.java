@@ -1,26 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package view;
 
-import model.*;
+import model.Equipes;
+import model.SemiDeus;
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
-/**
- *
- * @author laris e lau kkkj
- */
 public class MenuPrincipal extends JFrame {
 
     private CardLayout cardLayout;
     private JPanel painelPrincipal;
-    private String nomeSenhorDaGuerra = "Visitante"; //nome antes do senhor da guerra escolher o proprio nome
+    private String nomeSenhorDaGuerra = "Visitante"; 
 
     public MenuPrincipal() {
         setTitle("Ascensão ao Olimpo!");
-        setSize(800,600);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         cardLayout = new CardLayout();
@@ -33,22 +27,20 @@ public class MenuPrincipal extends JFrame {
         add(painelPrincipal);
 
         cardLayout.show(painelPrincipal, "MENU");
+        setLocationRelativeTo(null);
     }
     
-    //menu inicial para o jogador selecionar o que quer fazer
     private JPanel inicializarMenu() {
         JPanel painel = new JPanel(new BorderLayout());
-        painel.setBackground(new Color(20, 20, 20)); //cinza escuro
+        painel.setBackground(new Color(20, 20, 20)); 
 
-        //titulo do menu:
         JPanel topo = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 50));
         topo.setOpaque(false);
         JLabel titulo = new JLabel("ASCENSÃO AO OLIMPO! 🏛️");
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 48));
-        titulo.setForeground(new Color(218, 165, 32)); // cor dourado
+        titulo.setForeground(new Color(218, 165, 32)); 
         topo.add(titulo);
         painel.add(topo, BorderLayout.NORTH);
-
         
         JPanel centro = new JPanel(new GridBagLayout());
         centro.setOpaque(false);
@@ -77,8 +69,6 @@ public class MenuPrincipal extends JFrame {
         JPanel painel = new JPanel(new BorderLayout());
         painel.setBackground(new Color(10, 10, 15));
 
-
-        // textinho pra explicar o prologo e dar inicio pra as coisinhas
         JTextArea textoHistoria = new JTextArea();
         textoHistoria.setText(
             "\n\n       NOS TEMPOS ANTIGOS...\n\n" +
@@ -92,8 +82,6 @@ public class MenuPrincipal extends JFrame {
             "   Quem vencerá? Hades ou Zeus?"
         );
 
-
-
         textoHistoria.setFont(new Font("Segoe UI", Font.ITALIC, 22));
         textoHistoria.setForeground(new Color(200, 200, 200));
         textoHistoria.setBackground(new Color(10, 10, 15));
@@ -101,12 +89,10 @@ public class MenuPrincipal extends JFrame {
         textoHistoria.setLineWrap(true);
         textoHistoria.setWrapStyleWord(true);
         
-        // margem para o texto não colar nas bordinhas
         textoHistoria.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
 
         painel.add(new JScrollPane(textoHistoria), BorderLayout.CENTER);
 
-        // botao de continuar
         JButton btnContinuar = criarBotaoEstilizado("CONTINUAR >>");
         btnContinuar.addActionListener(e -> cardLayout.show(painelPrincipal, "SENHOR_GUERRA"));
         
@@ -125,37 +111,28 @@ public class MenuPrincipal extends JFrame {
         gbc.insets = new Insets(10, 0, 10, 0);
         gbc.gridx = 0;
 
-        // imagem do senhor da guerra
         JLabel lblImagem = new JLabel();
         ImageIcon icon = carregarImagemSenhorGuerra();
-        if(icon != null) lblImagem.setIcon(icon);
-        else {
-
-
+        if(icon != null) {
+            lblImagem.setIcon(icon);
+        } else {
             lblImagem.setText("[IMAGEM SENHOR DA GUERRA]");
             lblImagem.setForeground(Color.CYAN);
             lblImagem.setFont(new Font("Arial", Font.BOLD, 20));
         }
         gbc.gridy = 0; painel.add(lblImagem, gbc);
 
-        // pergunta para decidir o nome do jogador
         JLabel lblPergunta = new JLabel("Qual é o seu nome, estrategista?");
+        lblPergunta.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        lblPergunta.setForeground(Color.WHITE);
+        gbc.gridy = 1; painel.add(lblPergunta, gbc);
 
-            lblPergunta.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-            lblPergunta.setForeground(Color.WHITE);
-            gbc.gridy = 1; painel.add(lblPergunta, gbc);
-
-        // campo para escrever o nome
         JTextField txtNome = new JTextField(15);
+        txtNome.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        txtNome.setHorizontalAlignment(JTextField.CENTER);
+        gbc.gridy = 2; painel.add(txtNome, gbc);
 
-            txtNome.setFont(new Font("Segoe UI", Font.BOLD, 16));
-            txtNome.setHorizontalAlignment(JTextField.CENTER);
-            gbc.gridy = 2; painel.add(txtNome, gbc);
-
-        // botao confirmacao
         JButton btnConfirmar = criarBotaoEstilizado("ENTRAR NA ARENA");
-
-
         btnConfirmar.setPreferredSize(new Dimension(250, 50));
         btnConfirmar.addActionListener(e -> {
             String nomeDigitado = txtNome.getText().trim();
@@ -167,20 +144,12 @@ public class MenuPrincipal extends JFrame {
             }
         });
         gbc.gridy = 3; 
-        gbc.insets = new Insets(30, 0, 0, 0); // Mais espaço antes do botão
+        gbc.insets = new Insets(30, 0, 0, 0); 
         painel.add(btnConfirmar, gbc);
 
         return painel;
     }
 
- 
-
-
-
-
-
-    //utilitarissimos, metodos acc
-    //botoes do menu
     private JButton criarBotaoEstilizado(String texto) {
         JButton btn = new JButton(texto);
         btn.setPreferredSize(new Dimension(300, 60));
@@ -202,56 +171,46 @@ public class MenuPrincipal extends JFrame {
     }
 
     private ImageIcon carregarImagemSenhorGuerra() {
-    try {
-        //tenta achar
-        // CORRIGIDO CAMINHO:
-        java.net.URL url = getClass().getResource("/assets/senhor_guerra.png");
-        
-        if (url != null) {
-            ImageIcon iconOriginal = new ImageIcon(url);
-            
-            Image img = iconOriginal.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-            return new ImageIcon(img);
+        try {
+            URL url = getClass().getResource("/assets/senhor_guerra.png");
+            if (url != null) {
+                ImageIcon iconOriginal = new ImageIcon(url);
+                Image img = iconOriginal.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                return new ImageIcon(img);
+            }
+        } catch (Exception e) {
+            System.err.println("Não foi possível carregar a imagem do Senhor da Guerra.");
         }
-    } catch (Exception e) {
-        System.err.println("Não foi possível carregar a imagem do Senhor da Guerra.");
+        return null; 
     }
-    return null; // tratamento de erro
-}
 
     private void confirmarInicioBatalha() {
-    Equipes arena = new Equipes();
-    
-    // O Back-end sorteia e nos diz o número aqui:
-    int totalSorteado = arena.formarEquipes(); 
+        Equipes arena = new Equipes();
+        int totalSorteado = arena.formarEquipes(); 
 
-    // Agora mostramos esse número sorteado no Front!
-    JOptionPane.showMessageDialog(this, 
-        "O Destino decidiu!\n" +
-        "O Torneio terá " + totalSorteado + " combatentes de cada lado.\n" +
-        "Prepare seu coração, " + nomeSenhorDaGuerra + "!");
+        JOptionPane.showMessageDialog(this, 
+            "O Destino decidiu!\n" +
+            "O Torneio terá " + totalSorteado + " combatentes de cada lado.\n" +
+            "Prepare seu coração, " + nomeSenhorDaGuerra + "!");
 
-    // Pegamos os líderes (primeiros da lista) para exibir na tela de batalha 1x1
-    SemiDeus heroi = arena.getLadoA().get(0);
-    SemiDeus inimigo = arena.getLadoB().get(0);
+        // Inicia a ArenaFrame passando os dados criados
+        ArenaFrame arenaFinal = new ArenaFrame(arena, nomeSenhorDaGuerra);
+        arenaFinal.setVisible(true);
 
-    TelaBatalha telaBatalha = new TelaBatalha(heroi, inimigo);
-    telaBatalha.setVisible(true);
-
-    this.dispose();
+        this.dispose();
     }
 
     private void mostrarCreditos() {
         JTextArea creditos = new JTextArea(
-            "Espero que tgoste de Ascensão ao Olimpo!\n\n" +
+            "Espero que goste de Ascensão ao Olimpo!\n\n" +
             "Desenvolvido por:\nLarissa Cena\nLauane Morais\nLuiza Accioly\nMaciele Ramos\n\n\n" + 
             "Disciplina: Programação Orientada a Objetos.\n\n" +
             "Agradecimentos:\nProf. Maily\nProf André Yoshiaki\nDeuses do Olimpo"
         );
 
         creditos.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        creditos.setForeground(new Color(218, 165, 32)); // douradinho
-        creditos.setBackground(new Color(30, 30, 35)); // cinza Escuro
+        creditos.setForeground(new Color(218, 165, 32)); 
+        creditos.setBackground(new Color(30, 30, 35)); 
         creditos.setEditable(false);
         creditos.setMargin(new Insets(10, 10, 10, 10));
 
@@ -259,12 +218,6 @@ public class MenuPrincipal extends JFrame {
         scroll.setBorder(BorderFactory.createLineBorder(new Color(218, 165, 32)));
         scroll.setPreferredSize(new Dimension(400, 250));
 
-        JOptionPane.showMessageDialog(
-            this, 
-            scroll, 
-            "CRÉDITOS DO PROJETO", 
-            JOptionPane.PLAIN_MESSAGE
-        );
+        JOptionPane.showMessageDialog(this, scroll, "CRÉDITOS DO PROJETO", JOptionPane.PLAIN_MESSAGE);
     }
-
-    }
+}

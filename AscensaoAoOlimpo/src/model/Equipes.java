@@ -30,13 +30,12 @@ public class Equipes {
 
     // aqui preenchemos as listas p/ cada lado com os combatentes
     public int formarEquipes() {
-        // Exemplo: define um tamanho aleatório ou fixo
-        int tam = Dado.rolar(5) + 1; // Garante pelo menos 2
-        // Ajuste para testes se quiser fixo: int tam = 5;
-        
-        System.out.println(">>>>>>>>> TORNEIO COMEÇA!!<<<<<<<<<<<");
-        System.out.printf("Batalha %d contra %d\n", tam, tam);
-        
+
+        // uma batalha pode ser um duelo de 1 contra 1, ou uma guerra massiva de 100
+        // contra 100
+        int tam = Dado.rolar(100);//modifiquei pra 5 só para facilitar nos testes (larissa)
+        System.out.println(">>>>>>>>> TORNEIO COMEÇA!!<<<<<<<<<<<\n");
+        System.out.printf("batalha %d contra %d\n ",tam,tam);
         for (int i = 1; i <= tam; i++) {
             SemiDeus c1 = sortearCombatente("Combatente A" + i);
             this.ladoA.add(c1);

@@ -3,17 +3,16 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-// Imports dos pacotes do projeto baseados na sua árvore
 import model.*;
 import util.*;
-import view.*; 
+import view.*;
 
 public class BatalhaController {
 
     private Equipes arenaBatalha;
     private int indexA = 0;
 
-    public BatalhaController(Equipes arenaBatalha) { // inicializando a arena como objeto de equipes
+    public BatalhaController(Equipes arenaBatalha) {
         this.arenaBatalha = arenaBatalha;
     }
 
@@ -51,10 +50,11 @@ public class BatalhaController {
         }
     }
 
-    private SemiDeus escolherAlvo(ArrayList<SemiDeus> lista) { // metodo auxiliar para escolher alvo aleatorio
-        List<SemiDeus> guerreirosVivos = new ArrayList<>(); // criando objeto guerreiros vivos
+    // Metodo auxiliar para escolher alvo aleatorio
+    private SemiDeus escolherAlvo(ArrayList<SemiDeus> lista) {
+        List<SemiDeus> guerreirosVivos = new ArrayList<>(); 
 
-        for (SemiDeus vivos : lista) { // for each pra percorrer a lista e filtrar só os vivos.
+        for (SemiDeus vivos : lista) { // percorre a lista e filtra só os vivos.
             if (vivos.estaVivo()) {
                 guerreirosVivos.add(vivos);
             }
@@ -64,8 +64,8 @@ public class BatalhaController {
             return null;
         }
 
-        int sorteio = Dado.rolar(guerreirosVivos.size()) - 1; // para sorteio de guerreio aleatorio da lista de vivos
-        return guerreirosVivos.get(sorteio); // guerreiro sorteado
+        int sorteio = Dado.rolar(guerreirosVivos.size()) - 1; // sorteio de guerreio aleatorio
+        return guerreirosVivos.get(sorteio); 
     }
 
     public void iniciarCombate() {
@@ -90,31 +90,75 @@ public class BatalhaController {
         }
     }
 
-    // larissa: init teste
-    public String dueloDeDuplas() {
+    // --- MÉTODOS ADICIONADOS PELA LARISSA (INTEGRADOS NA ESTRUTURA NOVA) ---
 
+    // Metodo para formatar o nome do semi deus com o lado e numero
+    private String formatarNome(SemiDeus s, String lado) {
+        String deus = "";
+        String classe = s.getClass().getSimpleName();
+    
+        // descobre o deus pai baseado na classe
+        if (classe.contains("Hecate")) deus = "Hécate";
+        else if (classe.contains("Ares")) deus = "Ares";
+        else if (classe.contains("Apolo")) deus = "Apolo";
+        else if (classe.contains("Hefesto")) deus = "Hefesto";
+
+        // descobre a posição na lista para o ID (A1, B2, etc) 
+        int posicao = (lado.equals("A") ? arenaBatalha.getLadoA().indexOf(s) : arenaBatalha.getLadoB().indexOf(s)) + 1;
+        
+        return "Filho de " + deus + " (" + lado + posicao + ")";
+    }
+
+    // Metodo para realizar o duelo de duplas (Lógica completa)
+    public String dueloDeDuplas() { 
         ArrayList<SemiDeus> ladoA = arenaBatalha.getLadoA();
         ArrayList<SemiDeus> ladoB = arenaBatalha.getLadoB();
 
-        // verificar se a rodada acabou ou se alguem ganhou
-        if (!temSobreviventes(ladoA) || !temSobreviventes(ladoB))
-            return "Fim de jogo!";
+        // se um lado nao tem mais sobreviventes, fim de jogo
+        if (!temSobreviventes(ladoA) || !temSobreviventes(ladoB)) {
+            return "\nO DESTINO FOI SELADO. FIM DE JOGO!";
+        }
+
+        // se o indexA ultrapassar o tamanho da lista, reseta e inicia nova rodada
         if (indexA >= ladoA.size()) {
             indexA = 0;
-            return "Nova rodada!";
+            return "\n---NOVA RODADA INICIADA ---";
         }
+        
+        // pega o combatente atual do lado A
         SemiDeus atacante = ladoA.get(indexA);
         indexA++;
 
+        // se o combatente estiver vivo, escolhe um alvo do lado B e ataca
         if (atacante.estaVivo()) {
             SemiDeus alvo = escolherAlvo(ladoB);
+            
+            // se encontrou um alvo vivo
             if (alvo != null) {
+                // captura dados antes do ataque 
+                double vidaAntes = alvo.getPontosvida();
+                String nomeAtacante = formatarNome(atacante, "A");
+                String nomeAlvo = formatarNome(alvo, "B");
+
                 atacante.atacar(alvo);
-                return atacante.getNome() + " atacou " + alvo.getNome();
+
+                // calculo do dano real
+                double dano = vidaAntes - alvo.getPontosvida();
+
+                // montagem do Log detalhado
+                StringBuilder sb = new StringBuilder();
+                sb.append(nomeAtacante).append(" ataca ").append(nomeAlvo).append("\n");
+                sb.append(nomeAlvo).append(" recebeu ").append(dano).append(" de dano.\n");
+                sb.append("Vida restante: ").append(alvo.getPontosvida()).append("\n");
+                
+                // verifica se o alvo morreu
+                if (!alvo.estaVivo()) {
+                    sb.append(nomeAlvo).append(" tombou em combate!\n");
+                }
+                return sb.toString();
             }
         }
 
-        return "O combatente foi tombado, próximo...";
+        return "O combatente atual está caído, passando para o próximo...";
     }
-    // larissa: end teste
 }

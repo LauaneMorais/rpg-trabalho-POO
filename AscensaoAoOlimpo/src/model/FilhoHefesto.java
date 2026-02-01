@@ -5,7 +5,7 @@ import util.*;
 public class FilhoHefesto extends SemiDeus {
 
     private double vigor;// particularidade dos filhos de hefesto
-    private double custoVigorBloqueio = 5.0;
+    private double custoVigorBloqueio = 10.0;
     private static final int chanceBloqueio = 20;
     private int chance;
 
@@ -13,7 +13,7 @@ public class FilhoHefesto extends SemiDeus {
     }
 
     public FilhoHefesto(String nome) {
-        super(nome, 120.0, 5.0, 15.0);
+        super(nome, 120.0, 10.0, 7.0);
         this.vigor = 50.0;
     }
 
