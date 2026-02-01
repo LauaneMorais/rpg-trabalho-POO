@@ -8,6 +8,7 @@ import util.Dado;
 import util.SorteioBuff;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -246,14 +247,18 @@ public class ArenaFrame extends JFrame {
         if (arena.getLadoA().isEmpty() || arena.getLadoB().isEmpty()) return;
 
         SemiDeus a = arena.getLadoA().get(dueloAtual);
+
         
-        SemiDeus b = null;
+        ArrayList<SemiDeus> vivosB = new ArrayList<>();
         for(SemiDeus s : arena.getLadoB()) {
-            if(s.estaVivo()) { b = s; break; }
+            if(s.estaVivo()) { vivosB.add(s); 
+            }
         }
+        if(!vivosB.isEmpty() && a.estaVivo()) {
 
-        if(a.estaVivo() && b!=null  && b.estaVivo()) {
-
+            int sorteio = (dueloAtual * 3) % vivosB.size();
+            SemiDeus b = vivosB.get(sorteio);
+       // if(a.estaVivo() && b!=null  && b.estaVivo()) {
             prepararDueloFocado(a,b);
             atualizarDestaqueNaMatriz(a, b);
 

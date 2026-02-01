@@ -35,8 +35,6 @@ Conforme a especificação do projeto, cada combatente possui características �
 
 ---
 
----
-
 ## 🛠 Defesa técnica 
 
 Para atender aos critérios de avaliação da disciplina, a arquitetura do software foca nos quatro pilares fundamentais:
@@ -56,12 +54,6 @@ Todos os atributos da superclasse e subclasses são `private`. O controle de est
 ### 4. Tratamento de coleções e aleatoriedade
 
 O projeto utiliza `ArrayList` para gerenciar as equipes de tamanho dinâmico e a classe utilitária `Dado` para simular a aleatoriedade dos ataques e alvos.
-
----
-
-Perfeito. Como a pessoa vai clonar o repositório, ela terá exatamente essa estrutura de pastas. O arquivo `build.xml` e a pasta `nbproject` indicam que o projeto foi criado originalmente no NetBeans, mas vamos focar nas instruções universais via terminal, que funcionam para qualquer pessoa que tenha o Java (JDK) instalado.
-
-Aqui está o texto pronto para você copiar e colar no seu **README.md**.
 
 ---
 
