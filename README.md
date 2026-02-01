@@ -59,12 +59,6 @@ O projeto utiliza `ArrayList` para gerenciar as equipes de tamanho dinâmico e a
 
 ---
 
-Perfeito. Como a pessoa vai clonar o repositório, ela terá exatamente essa estrutura de pastas. O arquivo `build.xml` e a pasta `nbproject` indicam que o projeto foi criado originalmente no NetBeans, mas vamos focar nas instruções universais via terminal, que funcionam para qualquer pessoa que tenha o Java (JDK) instalado.
-
-Aqui está o texto pronto para você copiar e colar no seu **README.md**.
-
----
-
 ## Instruções de instalação e execução
 
 Siga os passos abaixo para compilar e rodar o projeto em sua máquina local:
